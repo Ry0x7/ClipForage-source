@@ -1,0 +1,83 @@
+{
+  "kind": "webfonts#webfontList",
+  "items": [
+    {
+      "family": "Roboto",
+      "variants": ["regular", "700", "italic"],
+      "subsets": ["latin", "cyrillic"],
+      "version": "v47",
+      "lastModified": "2024-11-07",
+      "files": {
+        "700": "http://fonts.gstatic.com/s/roboto/v47/KFOlCnqEu92Fr1MmWUlvAw.ttf",
+        "regular": "http://fonts.gstatic.com/s/roboto/v47/KFOmCnqEu92Fr1Me5Q.ttf",
+        "italic": "http://fonts.gstatic.com/s/roboto/v47/KFOkCnqEu92Fr1Mu52xP.ttf"
+      },
+      "category": "sans-serif",
+      "kind": "webfonts#webfont",
+      "menu": "http://fonts.gstatic.com/s/roboto/v47/KFOmCnqEu92Fr1Me5Q.ttf"
+    },
+    {
+      "family": "Inter",
+      "variants": ["regular", "700"],
+      "subsets": ["latin"],
+      "version": "v18",
+      "lastModified": "2024-09-04",
+      "files": {
+        "regular": "http://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfMZg.ttf",
+        "700": "http://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYMZg.ttf"
+      },
+      "category": "sans-serif",
+      "kind": "webfonts#webfont"
+    },
+    {
+      "family": "Roboto Slab",
+      "variants": ["100", "700"],
+      "subsets": ["latin"],
+      "version": "v34",
+      "lastModified": "2024-09-04",
+      "files": {
+        "100": "http://fonts.gstatic.com/s/robotoslab/v34/BngbUXZYTXPIvIBgJJSb6s3BzlRRfKOFbvjojISmb2Rm.ttf",
+        "700": "http://fonts.gstatic.com/s/robotoslab/v34/BngbUXZYTXPIvIBgJJSb6s3BzlRRfKOFbvjoa4Omb2Rm.ttf"
+      },
+      "category": "serif",
+      "kind": "webfonts#webfont"
+    },
+    {
+      "family": "Ubuntu",
+      "variants": ["regular", "700"],
+      "subsets": ["latin"],
+      "version": "v20",
+      "lastModified": "2024-08-12",
+      "files": {
+        "regular": "http://fonts.gstatic.com/s/ubuntu/v20/4iCs6KVjbNBYlgo6eA.ttf",
+        "700": "http://fonts.gstatic.com/s/ubuntu/v20/4iCv6KVjbNBYlgoCxCvTtw.ttf"
+      },
+      "category": "sans-serif",
+      "kind": "webfonts#webfont"
+    },
+    {
+      "family": "Lobster",
+      "variants": ["regular"],
+      "subsets": ["latin"],
+      "version": "v30",
+      "lastModified": "2024-08-12",
+      "files": {
+        "regular": "http://fonts.gstatic.com/s/lobster/v30/neILzCirqoswsqX9_oU.ttf"
+      },
+      "category": "display",
+      "kind": "webfonts#webfont"
+    },
+    {
+      "family": "Permanent Marker",
+      "variants": ["regular"],
+      "subsets": ["latin"],
+      "version": "v16",
+      "lastModified": "2024-08-12",
+      "files": {
+        "regular": "http://fonts.gstatic.com/s/permanentmarker/v16/Fh4uPib9Iyv2ucM6pGQMWimMp004HaqIfrT5nlk.ttf"
+      },
+      "category": "handwriting",
+      "kind": "webfonts#webfont"
+    }
+  ]
+}

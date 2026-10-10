@@ -1,0 +1,39 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 42,
+    "params": {
+      "query": "(cat) AND mediatype:(movies)",
+      "qin": "(cat) AND mediatype:(movies)",
+      "fields": "identifier,title,mediatype,licenseurl,creator,description,date,downloads",
+      "wt": "json",
+      "sort": "downloads desc",
+      "rows": "20",
+      "start": 0
+    }
+  },
+  "response": {
+    "numFound": 2,
+    "start": 0,
+    "docs": [
+      {
+        "identifier": "cat_green_screen_2012",
+        "title": "Cat Green Screen",
+        "mediatype": "movies",
+        "licenseurl": "http://creativecommons.org/licenses/by/3.0/",
+        "creator": "Jane Doe",
+        "description": "A cat on a green screen.",
+        "date": "2012-05-01T00:00:00Z",
+        "downloads": 15321
+      },
+      {
+        "identifier": "old_cartoon_cat",
+        "title": "Old Cartoon Cat",
+        "mediatype": "movies",
+        "description": "Vintage cartoon.",
+        "date": "1935-01-01T00:00:00Z",
+        "downloads": 804
+      }
+    ]
+  }
+}

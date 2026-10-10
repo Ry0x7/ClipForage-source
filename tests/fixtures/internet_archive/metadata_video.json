@@ -1,0 +1,39 @@
+{
+  "created": 1727740800,
+  "dir": "/1/items/cat_green_screen_2012",
+  "metadata": {
+    "identifier": "cat_green_screen_2012",
+    "mediatype": "movies",
+    "title": "Cat Green Screen",
+    "licenseurl": "http://creativecommons.org/licenses/by/3.0/"
+  },
+  "files": [
+    {
+      "name": "Cat Green Screen.mov",
+      "source": "original",
+      "format": "QuickTime",
+      "size": "90000000",
+      "length": "12.30"
+    },
+    {
+      "name": "Cat Green Screen.mp4",
+      "source": "derivative",
+      "format": "h.264",
+      "original": "Cat Green Screen.mov",
+      "size": "4500000",
+      "length": "12.34"
+    },
+    {
+      "name": "Cat Green Screen.gif",
+      "source": "derivative",
+      "format": "Animated GIF",
+      "size": "180000"
+    },
+    {
+      "name": "cat_green_screen_2012_meta.xml",
+      "source": "original",
+      "format": "Metadata",
+      "size": "1200"
+    }
+  ]
+}

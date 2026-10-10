@@ -1,0 +1,59 @@
+{
+  "batchcomplete": true,
+  "query": {
+    "pages": [
+      {
+        "pageid": 2200001,
+        "ns": 6,
+        "title": "File:Cat on a fence.jpg",
+        "index": 1,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 3456789,
+            "width": 3000,
+            "height": 2000,
+            "thumburl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Cat_on_a_fence.jpg/320px-Cat_on_a_fence.jpg",
+            "thumbwidth": 320,
+            "thumbheight": 213,
+            "url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Cat_on_a_fence.jpg",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Cat_on_a_fence.jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=2200001",
+            "extmetadata": {
+              "Credit": {"value": "<a rel=\"nofollow\" href=\"https://www.flickr.com/photos/example/1\">Cat on a fence</a>", "source": "commons-desc-page"},
+              "Artist": {"value": "<a rel=\"nofollow\" href=\"https://www.flickr.com/people/example\">John &amp; Sons</a> from Somewhere", "source": "commons-desc-page"},
+              "LicenseShortName": {"value": "CC BY 2.0", "source": "commons-desc-page", "hidden": ""},
+              "AttributionRequired": {"value": "true", "source": "commons-desc-page", "hidden": ""},
+              "LicenseUrl": {"value": "https://creativecommons.org/licenses/by/2.0", "source": "commons-desc-page"}
+            },
+            "mime": "image/jpeg"
+          }
+        ]
+      },
+      {
+        "pageid": 2200002,
+        "ns": 6,
+        "title": "File:Cat silhouette.svg",
+        "index": 2,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 4567,
+            "width": 512,
+            "height": 512,
+            "thumburl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Cat_silhouette.svg/320px-Cat_silhouette.svg.png",
+            "thumbwidth": 320,
+            "thumbheight": 320,
+            "url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Cat_silhouette.svg",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Cat_silhouette.svg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=2200002",
+            "extmetadata": {
+              "LicenseShortName": {"value": "CC0", "source": "commons-desc-page", "hidden": ""}
+            },
+            "mime": "image/svg+xml"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "count": 4,
+  "previous": null,
+  "next": null,
+  "results": [
+    {
+      "id": 612345,
+      "name": "Door Slam Heavy",
+      "url": "https://freesound.org/people/foleyguy/sounds/612345/",
+      "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+      "username": "foleyguy",
+      "previews": {
+        "preview-hq-mp3": "https://cdn.freesound.org/previews/612/612345_1234-hq.mp3",
+        "preview-lq-mp3": "https://cdn.freesound.org/previews/612/612345_1234-lq.mp3",
+        "preview-hq-ogg": "https://cdn.freesound.org/previews/612/612345_1234-hq.ogg",
+        "preview-lq-ogg": "https://cdn.freesound.org/previews/612/612345_1234-lq.ogg"
+      },
+      "duration": 1.84,
+      "type": "wav",
+      "tags": ["door", "slam", "foley"],
+      "images": {"waveform_m": "https://cdn.freesound.org/displays/612/612345_1234_wave_M.png"},
+      "filesize": 324512
+    },
+    {
+      "id": 498761,
+      "name": "Whoosh Transition",
+      "url": "https://freesound.org/people/swooshy/sounds/498761/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "username": "swooshy",
+      "previews": {
+        "preview-hq-mp3": "https://cdn.freesound.org/previews/498/498761_5678-hq.mp3",
+        "preview-lq-mp3": "https://cdn.freesound.org/previews/498/498761_5678-lq.mp3"
+      },
+      "duration": 0.72,
+      "type": "flac",
+      "tags": ["whoosh", "transition"],
+      "images": {},
+      "filesize": 98211
+    },
+    {
+      "id": 377001,
+      "name": "Vinyl Crackle Loop",
+      "url": "https://freesound.org/people/dustydisc/sounds/377001/",
+      "license": "http://creativecommons.org/licenses/by-nc/3.0/",
+      "username": "dustydisc",
+      "previews": {
+        "preview-hq-mp3": "https://cdn.freesound.org/previews/377/377001_9012-hq.mp3",
+        "preview-lq-mp3": "https://cdn.freesound.org/previews/377/377001_9012-lq.mp3"
+      },
+      "duration": 12.0,
+      "type": "mp3",
+      "tags": ["vinyl", "crackle", "loop"],
+      "images": {},
+      "filesize": 480000
+    },
+    {
+      "id": 100001,
+      "name": "No Previews Sound",
+      "url": "https://freesound.org/people/ghost/sounds/100001/",
+      "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+      "username": "ghost",
+      "duration": 3.0,
+      "type": "wav",
+      "tags": [],
+      "images": {},
+      "filesize": 1000
+    }
+  ]
+}

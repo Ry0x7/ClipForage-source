@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>ClipForage</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wordmark"><h1>ClipForage</h1></div>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button type="button" role="tab" id="tab-search" aria-controls="panel-search" aria-selected="true" data-tab="search">Search</button>
+      <button type="button" role="tab" id="tab-history" aria-controls="panel-history" aria-selected="false" data-tab="history" tabindex="-1">History</button>
+      <button type="button" role="tab" id="tab-settings" aria-controls="panel-settings" aria-selected="false" data-tab="settings" tabindex="-1">Settings</button>
+    </nav>
+    <div class="topbar-right">
+      <button type="button" id="downloads-toggle" class="ghost" aria-expanded="false" aria-controls="downloads-drawer">
+        Downloads <span id="downloads-badge" class="badge-count" hidden>0</span>
+      </button>
+      <span id="doctor-status" class="doctor-status" title="Checking tools…">
+        <span id="doctor-dot" class="status-dot" aria-hidden="true"></span>
+        <span id="doctor-label" class="doctor-label">Checking tools…</span>
+      </span>
+    </div>
+  </header>
+
+  <aside id="downloads-drawer" class="drawer" hidden aria-label="Downloads">
+    <div class="drawer-head">
+      <strong>Downloads</strong>
+      <button type="button" id="downloads-close" class="ghost small" aria-label="Close downloads">Close</button>
+    </div>
+    <p class="drawer-hint muted">Tip: drag a saved file into your editor (Chrome/Edge).</p>
+    <ul id="downloads-list" class="drawer-list"></ul>
+    <p id="downloads-empty" class="muted">No downloads yet this session.</p>
+  </aside>
+
+  <main>
+    <section id="panel-search" role="tabpanel" aria-labelledby="tab-search">
+      <a class="skip-link" href="#results" id="skip-results">Skip to results</a>
+      <form id="search-form" class="search-form" autocomplete="off" data-mode="assets">
+        <div class="field mode-field">
+          <span class="field-label" id="mode-label">Mode</span>
+          <div class="segmented" role="radiogroup" aria-labelledby="mode-label">
+            <input type="radio" name="mode" id="mode-assets" value="assets" checked><label for="mode-assets">Assets</label>
+            <input type="radio" name="mode" id="mode-phrase" value="phrase"><label for="mode-phrase">Phrase</label>
+            <input type="radio" name="mode" id="mode-describe" value="describe"><label for="mode-describe">Describe</label>
+          </div>
+        </div>
+        <div class="field grow query-field">
+          <label for="q">Search</label>
+          <input id="q" name="q" type="search" placeholder="green screen explosion, rain b-roll, whoosh..." required>
+        </div>
+        <div class="field grow describe-only">
+          <label for="describe-text">Describe</label>
+          <textarea id="describe-text" name="describe" rows="2" spellcheck="true" aria-describedby="describe-hint" placeholder="Describe what you remember… e.g. 'cat crying at a dinner table while a woman yells' or 'skeleton battle song from undertale'"></textarea>
+          <span id="describe-hint" class="field-hint">Ctrl/Cmd+Enter to send</span>
+        </div>
+        <div class="field kind-field assets-only describe-too">
+          <label for="kind">Kind</label>
+          <select id="kind" name="kind"></select>
+        </div>
+        <div class="field style-field assets-only describe-too">
+          <span class="field-label" id="style-label">Style</span>
+          <div class="segmented" role="radiogroup" aria-labelledby="style-label">
+            <input type="radio" name="style" id="style-any" value="any" checked><label for="style-any">Any</label>
+            <input type="radio" name="style" id="style-meme" value="meme"><label for="style-meme">Meme</label>
+            <input type="radio" name="style" id="style-green_screen" value="green_screen"><label for="style-green_screen">Green screen</label>
+            <input type="radio" name="style" id="style-cinematic" value="cinematic"><label for="style-cinematic">Cinematic</label>
+          </div>
+        </div>
+        <div class="field sources-field phrase-only">
+          <span class="field-label" id="sources-label">Sources</span>
+          <div class="checks" role="group" aria-labelledby="sources-label">
+            <span class="check-item"><input type="checkbox" name="source" id="source-youtube" value="youtube" checked><label for="source-youtube">YouTube</label></span>
+            <span class="check-item"><input type="checkbox" name="source" id="source-internet_archive" value="internet_archive" checked><label for="source-internet_archive">Internet Archive</label></span>
+          </div>
+        </div>
+        <div class="field actions">
+          <button type="submit" id="search-btn" class="primary">Search</button>
+          <span id="search-spinner" class="spinner" hidden aria-hidden="true"></span>
+        </div>
+        <details id="filters" class="filters">
+          <summary><span class="filters-title">Filters</span> <span id="filters-count" class="badge-count" hidden>0</span></summary>
+          <div class="filters-body">
+            <div class="field assets-only">
+              <label for="orientation">Orientation</label>
+              <select id="orientation" name="orientation">
+                <option value="">any</option>
+                <option value="landscape">landscape</option>
+                <option value="portrait">portrait</option>
+                <option value="square">square</option>
+              </select>
+            </div>
+            <div class="field duration assets-only" role="group" aria-labelledby="duration-label">
+              <span class="field-label" id="duration-label">Duration (s)</span>
+              <div class="range-inputs">
+                <input id="min-duration" name="min_duration" type="number" min="0" step="1" inputmode="numeric" placeholder="min" aria-label="Minimum duration in seconds">
+                <span class="range-sep" aria-hidden="true">–</span>
+                <input id="max-duration" name="max_duration" type="number" min="0" step="1" inputmode="numeric" placeholder="max" aria-label="Maximum duration in seconds">
+              </div>
+            </div>
+            <div class="field assets-only">
+              <label for="provider">Provider</label>
+              <select id="provider" name="provider">
+                <option value="">all</option>
+              </select>
+            </div>
+            <div class="field check assets-only">
+              <input id="commercial" name="commercial_only" type="checkbox">
+              <label for="commercial">Commercial use only</label>
+            </div>
+            <div class="field check assets-only" id="cleared-field">
+              <input id="cleared" name="cleared_only" type="checkbox">
+              <label for="cleared" title="Hide results that are non-commercial, copyrighted or of unknown license">Cleared for use only</label>
+            </div>
+            <div class="field check assets-only">
+              <input id="shorts" name="shorts" type="checkbox">
+              <label for="shorts" title="YouTube Shorts: 60 s or less, YouTube first, portrait stock after">Shorts</label>
+            </div>
+            <div class="field grow phrase-only">
+              <label for="within">Within</label>
+              <input id="within" name="within" type="text" spellcheck="false" placeholder="YouTube video/playlist/channel URL, or IA film title/identifier">
+            </div>
+            <div class="field narrow phrase-only">
+              <label for="max-videos">Max videos</label>
+              <input id="max-videos" name="max_videos" type="number" min="1" max="25" step="1" value="10" inputmode="numeric">
+            </div>
+            <div class="field narrow phrase-only clip-limit">
+              <label for="clip-max-wall" title="Wall-clock limit for clip downloads from direct files. Empty: server default (300 s). 0: no limit.">Clip time limit (s)</label>
+              <input id="clip-max-wall" name="clip_max_wall_s" type="number" min="0" max="7200" step="1" placeholder="300" inputmode="numeric" title="Wall-clock limit for clip downloads from direct files. Empty: server default (300 s). 0: no limit.">
+            </div>
+            <div class="field">
+              <label for="quality" title="Max video height for YouTube / yt-dlp downloads. Stock files and mp3 ignore it.">Quality <span class="label-hint">(YouTube only)</span></label>
+              <select id="quality" name="quality" title="Max video height for YouTube / yt-dlp downloads. Stock files and mp3 ignore it.">
+                <option value="best">Best</option>
+                <option value="2160">2160p</option>
+                <option value="1440">1440p</option>
+                <option value="1080">1080p</option>
+                <option value="720">720p</option>
+                <option value="480">480p</option>
+                <option value="360">360p</option>
+              </select>
+            </div>
+          </div>
+        </details>
+      </form>
+      <div id="recall-chips" class="suggest-row" aria-live="polite" hidden></div>
+      <p id="key-hint" class="hint" hidden></p>
+
+      <section id="assist-card" class="assist-card" aria-live="polite" aria-label="Assist" hidden></section>
+      <ul id="notices" class="notices" aria-label="Provider errors"></ul>
+      <p id="result-status" class="muted" aria-live="polite"></p>
+      <p id="safe-status" class="safe-status muted" aria-live="polite" hidden></p>
+      <div id="also-searched" class="suggest-row" hidden></div>
+      <div id="results-help" class="results-help" hidden></div>
+      <section id="empty-state" class="empty-state" aria-labelledby="empty-title">
+        <h2 id="empty-title">Find clips, sounds and fonts you can actually use</h2>
+        <p>ClipForage searches YouTube and free stock libraries in one go and shows the license on every result, so you can tell at a glance what is safe to put in an edit.<span id="empty-safe"> Safe search on.</span></p>
+        <div class="example-row">
+          <span class="label">Try:</span>
+          <button type="button" class="example-chip" data-example-q="crying cat" data-example-kind="video">crying cat <span class="example-kind">Video</span></button>
+          <button type="button" class="example-chip" data-example-q="undertale sans" data-example-kind="audio_music">undertale sans <span class="example-kind">Music</span></button>
+          <button type="button" class="example-chip" data-example-q="whoosh" data-example-kind="audio_sfx">whoosh <span class="example-kind">Sound FX</span></button>
+        </div>
+        <ul class="legend" aria-label="Rights badges">
+          <li class="label" aria-hidden="true">Badges:</li>
+          <li class="badge rights-clear">Free to use</li>
+          <li class="badge rights-attribution">Credit required</li>
+          <li class="badge rights-noncommercial">Non-commercial</li>
+          <li class="badge rights-copyrighted">Copyrighted</li>
+          <li class="badge rights-unknown">Check license</li>
+        </ul>
+      </section>
+      <div id="results" class="grid" tabindex="-1" aria-label="Results"></div>
+      <section id="related" class="related" aria-labelledby="related-title" hidden>
+        <div class="related-head">
+          <h2 id="related-title"></h2>
+          <button type="button" id="related-search" class="link-button">Search this kind</button>
+        </div>
+        <div id="related-grid" class="grid"></div>
+      </section>
+      <div id="phrase-results" class="phrase-results" tabindex="-1" aria-label="Phrase hits" hidden></div>
+      <div id="linkouts" class="linkouts" hidden></div>
+    </section>
+
+    <section id="panel-history" role="tabpanel" aria-labelledby="tab-history" hidden>
+      <div class="panel-head">
+        <h2>History</h2>
+        <button type="button" id="history-refresh" class="ghost small">Refresh</button>
+      </div>
+      <p id="history-status" class="muted"></p>
+      <div class="table-wrap">
+        <table class="history">
+          <thead>
+            <tr><th scope="col">When</th><th scope="col">Provider</th><th scope="col">Title</th><th scope="col">Path</th><th scope="col">License</th><th scope="col">Actions</th></tr>
+          </thead>
+          <tbody id="history-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="panel-settings" role="tabpanel" aria-labelledby="tab-settings" hidden>
+      <h2>Settings</h2>
+      <div class="settings-block">
+        <h3>Library</h3>
+        <p class="settings-help">Downloads land in this folder, each with a <code>.json</code> sidecar holding its license and attribution. Point your editor's media import at it.</p>
+        <form id="library-form" class="row-form">
+          <label for="library-dir">Library folder</label>
+          <input id="library-dir" type="text" spellcheck="false">
+          <button type="submit" class="primary">Save</button>
+        </form>
+        <div class="row-form">
+          <label for="config-path">Config file</label>
+          <input id="config-path" type="text" readonly>
+        </div>
+      </div>
+
+      <div class="settings-block">
+        <h3>API keys</h3>
+        <p class="muted">Keys are stored in your local config file and never leave this machine except to the provider.</p>
+        <div id="keys-list" class="keys-list"></div>
+      </div>
+
+      <div class="settings-block" id="search-settings">
+        <h3>Search</h3>
+        <div class="setting-toggle">
+          <input id="safe-search" type="checkbox" checked>
+          <label for="safe-search">Safe search</label>
+        </div>
+        <p class="muted">Hides adult content from all sources. On by default. Turn off only if you need it; the CLI equivalent is <code>--unsafe</code>.</p>
+      </div>
+
+      <div class="settings-block" id="assist-settings">
+        <h3>Assist</h3>
+        <div class="assist-enable">
+          <input id="assist-enabled" type="checkbox">
+          <label for="assist-enabled">Enable AI assist</label>
+        </div>
+        <p class="muted">Optional. Off by default. Only runs when you submit a Describe request; uses your own Claude Code login or API keys. Everything else in ClipForage works without it.</p>
+        <div id="assist-controls" class="assist-controls">
+          <ul id="assist-status-list" class="assist-status-list"></ul>
+          <p id="assist-current" class="assist-current muted" hidden></p>
+          <form id="assist-form" class="assist-form">
+            <div class="field">
+              <label for="assist-backend">Backend</label>
+              <select id="assist-backend">
+                <option value="auto">auto</option>
+                <option value="claude_cli">claude_cli</option>
+                <option value="anthropic">anthropic</option>
+                <option value="openai">openai</option>
+              </select>
+            </div>
+            <div class="field grow">
+              <label for="assist-model">Model</label>
+              <input id="assist-model" type="text" spellcheck="false" placeholder="backend default">
+            </div>
+            <div class="assist-models">
+              <p class="field-hint">Per-backend model (optional; overrides Model for that backend)</p>
+              <div class="field">
+                <label for="assist-claude_cli-model">claude_cli</label>
+                <input id="assist-claude_cli-model" type="text" spellcheck="false" placeholder="claude-opus-5-5">
+              </div>
+              <div class="field">
+                <label for="assist-anthropic-model">anthropic</label>
+                <input id="assist-anthropic-model" type="text" spellcheck="false" placeholder="claude-opus-5-5">
+              </div>
+              <div class="field">
+                <label for="assist-openai-model">openai</label>
+                <input id="assist-openai-model" type="text" spellcheck="false" placeholder="gpt-4o-mini">
+              </div>
+            </div>
+            <button type="submit" class="primary">Save</button>
+          </form>
+          <div id="assist-keys" class="keys-list"></div>
+        </div>
+      </div>
+
+      <div class="settings-block">
+        <h3>Tools</h3>
+        <p class="settings-help">ffmpeg and Deno are needed for YouTube downloads, MP3 and clips. <code>clipforage setup</code> fetches both.</p>
+        <ul id="doctor-list" class="doctor-list"></ul>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="lightbox" class="lightbox" aria-labelledby="lightbox-title">
+    <div class="lightbox-head">
+      <h2 id="lightbox-title"></h2>
+      <button type="button" id="lightbox-close" class="ghost small" aria-label="Close preview">Close</button>
+    </div>
+    <div id="lightbox-media" class="lightbox-media"></div>
+    <p id="lightbox-caption" class="lightbox-caption" hidden></p>
+    <div id="chroma-controls" class="chroma-controls" hidden>
+      <div class="chroma-toggle">
+        <input id="chroma-on" type="checkbox">
+        <label for="chroma-on">Chroma key</label>
+      </div>
+      <div class="chroma-tolerance">
+        <label for="chroma-tolerance">Tolerance</label>
+        <input id="chroma-tolerance" type="range" min="0" max="120" step="1" value="80">
+        <output id="chroma-tolerance-value" for="chroma-tolerance">80</output>
+      </div>
+      <div class="chroma-toggle">
+        <input id="chroma-despill" type="checkbox" checked>
+        <label for="chroma-despill">Despill</label>
+      </div>
+      <div class="chroma-bg" role="group" aria-label="Key background">
+        <button type="button" class="swatch checker" data-bg="checker" aria-pressed="true" title="Checkerboard" aria-label="Checkerboard background"></button>
+        <button type="button" class="swatch black" data-bg="black" aria-pressed="false" title="Black" aria-label="Black background"></button>
+        <button type="button" class="swatch white" data-bg="white" aria-pressed="false" title="White" aria-label="White background"></button>
+      </div>
+      <span id="chroma-msg" class="chroma-msg" hidden></span>
+    </div>
+    <p id="lightbox-license" class="lightbox-license"></p>
+    <p id="lightbox-rights" class="lightbox-rights" hidden></p>
+    <pre id="lightbox-attribution" class="attribution"></pre>
+    <div class="lightbox-actions">
+      <span class="card-actions">
+        <button type="button" id="lightbox-download" class="primary">Download</button>
+        <button type="button" id="lightbox-mp3" hidden>MP3</button>
+      </span>
+      <button type="button" id="lightbox-copy">Copy attribution</button>
+      <a id="lightbox-source" class="button ghost" target="_blank" rel="noopener noreferrer">Source</a>
+    </div>
+    <div id="lightbox-state" class="card-state" hidden></div>
+  </dialog>
+
+  <div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

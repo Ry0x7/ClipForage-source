@@ -1,0 +1,118 @@
+{
+  "page": 1,
+  "per_page": 2,
+  "total_results": 2,
+  "url": "https://www.pexels.com/search/videos/green%20screen/",
+  "videos": [
+    {
+      "id": 3571264,
+      "width": 3840,
+      "height": 2160,
+      "duration": 33,
+      "full_res": null,
+      "tags": [],
+      "url": "https://www.pexels.com/video/drone-view-of-a-green-field-3571264/",
+      "image": "https://images.pexels.com/videos/3571264/free-video-3571264.jpg?auto=compress&cs=tinysrgb&fit=crop&h=630&w=1200",
+      "avg_color": null,
+      "user": {
+        "id": 1583460,
+        "name": "Joey Farina",
+        "url": "https://www.pexels.com/@joey"
+      },
+      "video_files": [
+        {
+          "id": 9338790,
+          "quality": "uhd",
+          "file_type": "video/mp4",
+          "width": 3840,
+          "height": 2160,
+          "fps": 29.97,
+          "link": "https://videos.pexels.com/video-files/3571264/3571264-uhd_3840_2160_30fps.mp4",
+          "size": 61261234
+        },
+        {
+          "id": 9338791,
+          "quality": "hd",
+          "file_type": "video/mp4",
+          "width": 1920,
+          "height": 1080,
+          "fps": 29.97,
+          "link": "https://videos.pexels.com/video-files/3571264/3571264-hd_1920_1080_30fps.mp4",
+          "size": 15261234
+        },
+        {
+          "id": 9338792,
+          "quality": "sd",
+          "file_type": "video/mp4",
+          "width": 640,
+          "height": 360,
+          "fps": 29.97,
+          "link": "https://videos.pexels.com/video-files/3571264/3571264-sd_640_360_30fps.mp4",
+          "size": 2261234
+        },
+        {
+          "id": 9338793,
+          "quality": "hls",
+          "file_type": "video/mp4",
+          "width": null,
+          "height": null,
+          "fps": null,
+          "link": "https://player.vimeo.com/external/3571264.m3u8"
+        }
+      ],
+      "video_pictures": [
+        {
+          "id": 797271,
+          "nr": 0,
+          "picture": "https://images.pexels.com/videos/3571264/pictures/preview-0.jpg"
+        }
+      ]
+    },
+    {
+      "id": 5752729,
+      "width": 1080,
+      "height": 1920,
+      "duration": 12,
+      "full_res": null,
+      "tags": [],
+      "url": "https://www.pexels.com/video/woman-dancing-in-front-of-a-green-screen-5752729/",
+      "image": "https://images.pexels.com/videos/5752729/pexels-photo-5752729.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+      "avg_color": null,
+      "user": {
+        "id": 3149039,
+        "name": "Mikhail Nilov",
+        "url": "https://www.pexels.com/@mikhail-nilov"
+      },
+      "video_files": [
+        {
+          "id": 11012345,
+          "quality": "hd",
+          "file_type": "video/mp4",
+          "width": 1080,
+          "height": 1920,
+          "fps": 25,
+          "link": "https://videos.pexels.com/video-files/5752729/5752729-hd_1080_1920_25fps.mp4",
+          "size": 9812345
+        },
+        {
+          "id": 11012346,
+          "quality": "sd",
+          "file_type": "video/mp4",
+          "width": 540,
+          "height": 960,
+          "fps": 25,
+          "link": "https://videos.pexels.com/video-files/5752729/5752729-sd_540_960_25fps.mp4",
+          "size": 2812345
+        }
+      ],
+      "video_pictures": [
+        {
+          "id": 3312345,
+          "nr": 0,
+          "picture": "https://images.pexels.com/videos/5752729/pictures/preview-0.jpeg"
+        }
+      ]
+    }
+  ],
+  "next_page": "https://api.pexels.com/v1/videos/search/?page=2&per_page=2&query=green+screen"
+}

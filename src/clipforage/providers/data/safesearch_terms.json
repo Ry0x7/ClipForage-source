@@ -1,0 +1,67 @@
+{
+  "_comment": "Safe search blocklist (clipforage.safesearch). Lowercase; matched as whole words after non-alphanumerics (incl. _ - . /) become spaces. Deliberately excludes ambiguous words (adult, cock, dick, tit, ass, cum, hardcore, sexy, escort, penthouse, stripper). ia_collections are Internet Archive collection identifiers matched exactly; ia_subjects go into the IA query as NOT subject:(...).",
+  "terms": [
+    "porn", "porno", "pornos", "porns", "pornography", "pornographic", "pornstar", "pornstars",
+    "p0rn", "pr0n", "pr0no", "xxx", "nsfw", "x rated",
+    "s3x", "seggs", "sex tape", "sex scene", "sex scenes", "oral sex", "sexual intercourse",
+    "nekkid", "n00ds", "nudez", "softcore",
+    "hentai", "ecchi", "rule34", "rule 34", "r34", "r 18", "futanari", "smut",
+    "milf", "milfs", "dilf",
+    "boobs", "boobies", "tits", "titties", "titty",
+    "pussy", "cunt",
+    "blowjob", "blowjobs", "handjob", "cumshot", "creampie", "gangbang", "bukkake",
+    "deepthroat", "fellatio", "cunnilingus", "orgasm",
+    "masturbation", "masturbate", "masturbating", "wank", "wanking", "jerk off", "jerking off",
+    "bdsm", "dominatrix", "striptease", "upskirt",
+    "slut", "sluts", "whore", "whores", "camgirl", "camgirls", "camwhore",
+    "onlyfans", "pornhub", "xvideos", "xhamster", "xnxx", "redtube", "youporn", "brazzers",
+    "bestiality", "zoophilia",
+    "loli", "lolicon", "shota", "shotacon",
+    "adult film", "adult films", "adult video", "adult videos", "adult movie", "adult movies",
+    "adult content", "stag film", "stag films"
+  ],
+  "_mild_comment": "mild_terms are usually explicit but also show up in innocent text (biology, art history, film blurbs). They match the title, tags, subject, collection and categories, but not the description or the source_url path; terms (strong) match all of those.",
+  "mild_terms": [
+    "sex", "nude", "nudes", "nudity", "nudist", "nudism", "naked", "topless",
+    "nackt", "desnuda", "desnudas", "desnudo",
+    "erotic", "erotica", "erotik", "erotico", "erotica film", "sexploitation", "lewd",
+    "nipple", "nipples", "penis", "vagina", "vulva", "vulvas", "clitoris", "genitals", "genitalia", "anal",
+    "orgy", "orgies", "fetish", "bondage", "voyeur", "horny", "playboy", "incest", "jailbait",
+    "nude women", "nude men", "naked women", "naked men", "nude photography", "erotic art",
+    "human genitalia", "female genitalia", "male genitalia", "human penis", "human vulva"
+  ],
+  "_allow_comment": "allow_phrases are obviously innocent multi-word phrases cut out of every field (normalized, whole words) before matching, so their words cannot hit terms or mild_terms. A cut leaves a separator, so the words around it never join into a new phrase. Keep this list short.",
+  "allow_phrases": [
+    "naked ladies", "naked lady", "naked eye", "naked mole rat", "naked bike",
+    "sex pistols", "sex education", "sex and the city",
+    "nude mouse", "anal fin", "horny toad"
+  ],
+  "ia_collections": [
+    "no-preview",
+    "adultvhs",
+    "adultfilm",
+    "adultcdroms",
+    "adultimages",
+    "adultcomics",
+    "adultmanga",
+    "adultmagazines",
+    "adultmagazines_misc",
+    "adultgamemagazines",
+    "adultgamemagazinesmisc",
+    "hentaiarchive",
+    "backroomvhs",
+    "mensmagazines_post70s",
+    "folkscanomy_sexuality",
+    "FrostedPornFlakes",
+    "nsfw_show",
+    "tumblthreescrapes",
+    "primetimers_vhs",
+    "20thcenturyerotica",
+    "hetrijkvaneros",
+    "ukrainian-erotic-pornographic-periodicals",
+    "afmh-project"
+  ],
+  "ia_subjects": [
+    "porn", "pornography", "xxx", "erotic", "erotica", "hentai", "nsfw"
+  ]
+}

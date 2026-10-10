@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- UNTESTED SPIKE: never loaded into Premiere. See README.md and docs/PREMIERE_UXP_SPIKE.md. -->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body { font-family: sans-serif; font-size: 12px; padding: 8px; }
+      form { display: flex; gap: 4px; margin-bottom: 8px; }
+      #q { flex: 1; }
+      #status { color: #999; margin-bottom: 6px; }
+      #results { list-style: none; padding: 0; margin: 0; }
+      #results li { display: flex; justify-content: space-between; gap: 6px;
+                    padding: 4px 0; border-bottom: 1px solid #444; }
+      .title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .badge { flex: none; padding: 0 4px; border-radius: 3px; background: #555; }
+      .badge.ok { background: #2d6a2d; }
+      .badge.nc { background: #8a2b2b; }
+    </style>
+  </head>
+  <body>
+    <form id="search-form">
+      <input id="q" type="text" placeholder="Search clipforage" />
+      <select id="kind">
+        <option value="video">video</option>
+        <option value="audio_sfx">sfx</option>
+        <option value="audio_music">music</option>
+        <option value="image">image</option>
+        <option value="gif">gif</option>
+      </select>
+      <button id="go" type="submit">Search</button>
+    </form>
+    <div id="status">Start `clipforage serve`, then search.</div>
+    <ul id="results"></ul>
+    <script src="index.js"></script>
+  </body>
+</html>

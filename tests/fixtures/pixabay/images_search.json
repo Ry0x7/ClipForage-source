@@ -1,0 +1,52 @@
+{
+  "total": 4692,
+  "totalHits": 500,
+  "hits": [
+    {
+      "id": 195893,
+      "pageURL": "https://pixabay.com/en/blossom-bloom-flower-195893/",
+      "type": "photo",
+      "tags": "blossom, bloom, flower",
+      "previewURL": "https://cdn.pixabay.com/photo/2013/10/15/09/12/flower-195893_150.jpg",
+      "previewWidth": 150,
+      "previewHeight": 84,
+      "webformatURL": "https://pixabay.com/get/35bbf209e13e39d2_640.jpg",
+      "webformatWidth": 640,
+      "webformatHeight": 360,
+      "largeImageURL": "https://pixabay.com/get/ed6a99fd0a76647_1280.jpg",
+      "imageWidth": 4000,
+      "imageHeight": 2250,
+      "imageSize": 4731420,
+      "views": 7671,
+      "downloads": 6439,
+      "likes": 5,
+      "comments": 2,
+      "user_id": 48777,
+      "user": "Josch13",
+      "userImageURL": "https://cdn.pixabay.com/user/2013/11/05/02-10-23-764_250x250.jpg"
+    },
+    {
+      "id": 7654321,
+      "pageURL": "https://pixabay.com/photos/lighthouse-coast-sea-7654321/",
+      "type": "photo",
+      "tags": "lighthouse, coast, sea",
+      "previewURL": "https://cdn.pixabay.com/photo/2022/12/01/10/20/lighthouse-7654321_150.png",
+      "previewWidth": 100,
+      "previewHeight": 150,
+      "webformatURL": "https://pixabay.com/get/g1a2b3c4d5e6f_640.png",
+      "webformatWidth": 427,
+      "webformatHeight": 640,
+      "largeImageURL": "https://pixabay.com/get/g9f8e7d6c5b4a_1280.png",
+      "imageWidth": 3000,
+      "imageHeight": 4500,
+      "imageSize": 3120044,
+      "views": 1502,
+      "downloads": 988,
+      "likes": 21,
+      "comments": 3,
+      "user_id": 123456,
+      "user": "SeaSnapper",
+      "userImageURL": ""
+    }
+  ]
+}

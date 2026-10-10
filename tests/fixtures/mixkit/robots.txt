@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: */ads.txt
+Sitemap: https://mixkit.co/sitemaps/sitemap.xml.gz
+Sitemap: https://mixkit.co/sitemaps/vertical-sitemap.xml.gz
+Sitemap: https://mixkit.co/sitemaps/sitemap-video.xml.gz
+Sitemap: https://mixkit.co/sitemaps/sitemap-sfx.xml.gz
+
+User-agent: CCBot 
+Disallow: /
+
+User-agent: SemrushBot
+Crawl-delay: 5

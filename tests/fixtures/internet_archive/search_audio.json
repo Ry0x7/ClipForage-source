@@ -1,0 +1,29 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 17,
+    "params": {
+      "query": "(whoosh) AND mediatype:(audio)",
+      "wt": "json",
+      "sort": "downloads desc",
+      "rows": "20",
+      "start": 0
+    }
+  },
+  "response": {
+    "numFound": 1,
+    "start": 0,
+    "docs": [
+      {
+        "identifier": "whoosh_sfx_pack",
+        "title": "Whoosh SFX Pack",
+        "mediatype": "audio",
+        "licenseurl": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "creator": ["Sound Person", "Helper"],
+        "description": "Whooshes.",
+        "date": "2020-02-02T00:00:00Z",
+        "downloads": 999
+      }
+    ]
+  }
+}

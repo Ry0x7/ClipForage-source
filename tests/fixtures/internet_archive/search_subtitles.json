@@ -1,0 +1,30 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 37,
+    "params": {
+      "query": "(barbara) AND mediatype:movies AND (format:\"SubRip\" OR format:\"Web Video Text Tracks\")",
+      "fields": "identifier,title,mediatype,licenseurl,creator,description,date,downloads",
+      "wt": "json",
+      "sort": "downloads desc",
+      "rows": "10",
+      "start": 0
+    }
+  },
+  "response": {
+    "numFound": 1,
+    "start": 0,
+    "docs": [
+      {
+        "identifier": "fake_pd_horror_1968",
+        "title": "Fake Public Domain Horror Film",
+        "mediatype": "movies",
+        "licenseurl": "http://creativecommons.org/publicdomain/mark/1.0/",
+        "creator": "Fake Studio",
+        "description": "Synthetic fixture entry for tests.",
+        "date": "1968-10-01T00:00:00Z",
+        "downloads": 98765
+      }
+    ]
+  }
+}

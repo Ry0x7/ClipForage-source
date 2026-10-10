@@ -1,0 +1,37 @@
+{
+  "created": 1727740800,
+  "dir": "/1/items/fake_pd_horror_1968",
+  "metadata": {
+    "identifier": "fake_pd_horror_1968",
+    "mediatype": "movies",
+    "title": "Fake Public Domain Horror Film",
+    "licenseurl": "http://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": [
+    {
+      "name": "fake_pd_horror_1968.mp4",
+      "source": "original",
+      "format": "MPEG4",
+      "size": "734003200",
+      "length": "5760.00"
+    },
+    {
+      "name": "fake_pd_horror_1968.es.srt",
+      "source": "original",
+      "format": "SubRip",
+      "size": "61000"
+    },
+    {
+      "name": "fake_pd_horror_1968.en.srt",
+      "source": "original",
+      "format": "SubRip",
+      "size": "64000"
+    },
+    {
+      "name": "fake_pd_horror_1968_meta.xml",
+      "source": "original",
+      "format": "Metadata",
+      "size": "1200"
+    }
+  ]
+}

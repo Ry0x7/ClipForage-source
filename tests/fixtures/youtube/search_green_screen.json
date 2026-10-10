@@ -1,0 +1,75 @@
+{
+  "_type": "playlist",
+  "id": "green screen meme",
+  "title": "green screen meme",
+  "extractor": "youtube:search",
+  "extractor_key": "YoutubeSearch",
+  "webpage_url": "ytsearch10:green screen meme",
+  "entries": [
+    {
+      "_type": "url",
+      "ie_key": "Youtube",
+      "id": "aaaaaaaaaaa",
+      "url": "https://www.youtube.com/watch?v=aaaaaaaaaaa",
+      "title": "Fake Green Screen Surprised Cat",
+      "description": "Synthetic fixture entry for tests.",
+      "duration": 12,
+      "channel": "Fake Chroma Channel",
+      "channel_id": "UCfakechannel00000000001",
+      "channel_url": "https://www.youtube.com/channel/UCfakechannel00000000001",
+      "uploader": "Fake Chroma Channel",
+      "uploader_id": "@fakechroma",
+      "uploader_url": "https://www.youtube.com/@fakechroma",
+      "thumbnails": [
+        {"url": "https://i.ytimg.com/vi/aaaaaaaaaaa/hqdefault.jpg?small", "width": 168, "height": 94},
+        {"url": "https://i.ytimg.com/vi/aaaaaaaaaaa/hqdefault.jpg?large", "width": 336, "height": 188}
+      ],
+      "view_count": 12345,
+      "live_status": null,
+      "availability": null
+    },
+    {
+      "_type": "url",
+      "ie_key": "Youtube",
+      "id": "bbbbbbbbbbb",
+      "url": "https://www.youtube.com/shorts/bbbbbbbbbbb",
+      "title": "Fake Vertical Green Screen Explosion",
+      "description": null,
+      "duration": 9,
+      "channel": null,
+      "channel_id": null,
+      "channel_url": null,
+      "uploader": null,
+      "uploader_id": null,
+      "uploader_url": null,
+      "thumbnails": [
+        {"url": "https://i.ytimg.com/vi/bbbbbbbbbbb/frame0.jpg", "width": 1080, "height": 1920}
+      ],
+      "view_count": 678,
+      "live_status": null,
+      "availability": null
+    },
+    {
+      "_type": "url",
+      "ie_key": "Youtube",
+      "id": "ccccccccccc",
+      "url": "https://www.youtube.com/watch?v=ccccccccccc",
+      "title": "Fake 24/7 Green Screen Livestream",
+      "description": "Synthetic live entry.",
+      "duration": null,
+      "channel": "Fake Live Channel",
+      "channel_id": "UCfakechannel00000000002",
+      "channel_url": "https://www.youtube.com/channel/UCfakechannel00000000002",
+      "uploader": "Fake Live Channel",
+      "uploader_id": "@fakelive",
+      "uploader_url": "https://www.youtube.com/@fakelive",
+      "thumbnails": [
+        {"url": "https://i.ytimg.com/vi/ccccccccccc/hqdefault_live.jpg", "width": 336, "height": 188}
+      ],
+      "view_count": 42,
+      "live_status": "is_live",
+      "availability": null
+    },
+    null
+  ]
+}

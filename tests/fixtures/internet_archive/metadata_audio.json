@@ -1,0 +1,27 @@
+{
+  "created": 1727740800,
+  "dir": "/2/items/whoosh_sfx_pack",
+  "metadata": {
+    "identifier": "whoosh_sfx_pack",
+    "mediatype": "audio",
+    "title": "Whoosh SFX Pack",
+    "licenseurl": "http://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": [
+    {
+      "name": "whoosh.flac",
+      "source": "original",
+      "format": "Flac",
+      "size": "2400000",
+      "length": "3.21"
+    },
+    {
+      "name": "whoosh.mp3",
+      "source": "derivative",
+      "format": "VBR MP3",
+      "original": "whoosh.flac",
+      "size": "120000",
+      "length": "3.20"
+    }
+  ]
+}

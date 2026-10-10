@@ -1,0 +1,213 @@
+{
+  "result_count": 3,
+  "page_count": 1,
+  "page_size": 20,
+  "page": 1,
+  "results": [
+    {
+      "id": "f102eb5d-b008-4a74-aa3d-1120fba29d08",
+      "title": "Lofi House",
+      "indexed_on": "2022-08-01T21:56:38.264750Z",
+      "foreign_landing_url": "https://www.jamendo.com/track/1356703",
+      "url": "https://prod-1.storage.jamendo.com/?trackid=1356703&format=mp32",
+      "creator": "AstroShroom",
+      "creator_url": "https://www.jamendo.com/artist/491261/AstroShroom_(2)",
+      "license": "by-sa",
+      "license_version": "3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "provider": "jamendo",
+      "source": "jamendo",
+      "category": "music",
+      "genres": [
+        "lofi"
+      ],
+      "filesize": null,
+      "filetype": "mp32",
+      "tags": [
+        {
+          "name": "happy",
+          "accuracy": null,
+          "unstable__provider": "jamendo"
+        },
+        {
+          "name": "instrumental",
+          "accuracy": null,
+          "unstable__provider": "jamendo"
+        },
+        {
+          "name": "lofihiphop",
+          "accuracy": null,
+          "unstable__provider": "jamendo"
+        },
+        {
+          "name": "speed_medium",
+          "accuracy": null,
+          "unstable__provider": "jamendo"
+        },
+        {
+          "name": "trippy",
+          "accuracy": null,
+          "unstable__provider": "jamendo"
+        }
+      ],
+      "alt_files": null,
+      "attribution": "\"Lofi House\" by AstroShroom is licensed under CC BY-SA 3.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/3.0/.",
+      "fields_matched": [
+        "title"
+      ],
+      "mature": false,
+      "audio_set": {
+        "title": "B.O.T.S. (Birth Of The Shroom)",
+        "foreign_landing_url": "https://www.jamendo.com/album/159892/b-o-t-s-birth-of-the-shroom",
+        "creator": "AstroShroom",
+        "creator_url": "https://www.jamendo.com/artist/491261/AstroShroom_(2)",
+        "url": null,
+        "filesize": null,
+        "filetype": null
+      },
+      "duration": 123000,
+      "bit_rate": null,
+      "sample_rate": null,
+      "thumbnail": "https://api.openverse.org/v1/audio/f102eb5d-b008-4a74-aa3d-1120fba29d08/thumb/",
+      "detail_url": "https://api.openverse.org/v1/audio/f102eb5d-b008-4a74-aa3d-1120fba29d08/",
+      "related_url": "https://api.openverse.org/v1/audio/f102eb5d-b008-4a74-aa3d-1120fba29d08/related/",
+      "waveform": "https://api.openverse.org/v1/audio/f102eb5d-b008-4a74-aa3d-1120fba29d08/waveform/",
+      "unstable__sensitivity": []
+    },
+    {
+      "id": "5fd5f2eb-5134-49bb-b73b-e5941893a3de",
+      "title": "Die Stunde die nicht existiert LoFi (Akustik-Version)",
+      "indexed_on": "2022-08-01T21:56:38.264750Z",
+      "foreign_landing_url": "https://www.jamendo.com/track/1500957",
+      "url": "https://prod-1.storage.jamendo.com/?trackid=1500957&format=mp32",
+      "creator": "Evan Freyer",
+      "creator_url": "https://www.jamendo.com/artist/419990/Evan_Freyer",
+      "license": "by-sa",
+      "license_version": "3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "provider": "jamendo",
+      "source": "jamendo",
+      "category": "music",
+      "genres": [
+        "pop",
+        "rock",
+        "singersongwriter"
+      ],
+      "filesize": null,
+      "filetype": "mp32",
+      "tags": [
+        {
+          "name": "acousticguitar",
+          "accuracy": null,
+          "unstable__provider": "jamendo"
+        },
+        {
+          "name": "atmospheric",
+          "accuracy": null,
+          "unstable__provider": "jamendo"
+        },
+        {
+          "name": "male",
+          "accuracy": null,
+          "unstable__provider": "jamendo"
+        },
+        {
+          "name": "mysterious",
+          "accuracy": null,
+          "unstable__provider": "jamendo"
+        },
+        {
+          "name": "sad",
+          "accuracy": null,
+          "unstable__provider": "jamendo"
+        },
+        {
+          "name": "speed_low",
+          "accuracy": null,
+          "unstable__provider": "jamendo"
+        },
+        {
+          "name": "vocal",
+          "accuracy": null,
+          "unstable__provider": "jamendo"
+        }
+      ],
+      "alt_files": null,
+      "attribution": "\"Die Stunde die nicht existiert LoFi (Akustik-Version)\" by Evan Freyer is licensed under CC BY-SA 3.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/3.0/.",
+      "fields_matched": [
+        "title"
+      ],
+      "mature": false,
+      "audio_set": {
+        "title": "Klampfenklänge aus dem Kleiderschrank",
+        "foreign_landing_url": "https://www.jamendo.com/album/172887/klampfenklaenge-aus-dem-kleiderschrank",
+        "creator": "Evan Freyer",
+        "creator_url": "https://www.jamendo.com/artist/419990/Evan_Freyer",
+        "url": null,
+        "filesize": null,
+        "filetype": null
+      },
+      "duration": 279000,
+      "bit_rate": null,
+      "sample_rate": null,
+      "thumbnail": "https://api.openverse.org/v1/audio/5fd5f2eb-5134-49bb-b73b-e5941893a3de/thumb/",
+      "detail_url": "https://api.openverse.org/v1/audio/5fd5f2eb-5134-49bb-b73b-e5941893a3de/",
+      "related_url": "https://api.openverse.org/v1/audio/5fd5f2eb-5134-49bb-b73b-e5941893a3de/related/",
+      "waveform": "https://api.openverse.org/v1/audio/5fd5f2eb-5134-49bb-b73b-e5941893a3de/waveform/",
+      "unstable__sensitivity": []
+    },
+    {
+      "id": "b386828e-b628-45f6-b900-6441a49cc977",
+      "title": "Lofy",
+      "indexed_on": "2022-04-01T07:25:28.481246Z",
+      "foreign_landing_url": "https://www.jamendo.com/track/317391",
+      "url": "https://prod-1.storage.jamendo.com/?trackid=317391&format=mp32",
+      "creator": "macouno",
+      "creator_url": "https://www.jamendo.com/artist/349079/macouno",
+      "license": "by",
+      "license_version": "3.0",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "provider": "jamendo",
+      "source": "jamendo",
+      "category": "music",
+      "genres": [],
+      "filesize": null,
+      "filetype": "mp32",
+      "tags": [
+        {
+          "name": "instrumental",
+          "accuracy": null,
+          "unstable__provider": "jamendo"
+        },
+        {
+          "name": "speed_medium",
+          "accuracy": null,
+          "unstable__provider": "jamendo"
+        }
+      ],
+      "alt_files": null,
+      "attribution": "\"Lofy\" by macouno is licensed under CC BY 3.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/3.0/.",
+      "fields_matched": [
+        "title"
+      ],
+      "mature": false,
+      "audio_set": {
+        "title": "Everywhere",
+        "foreign_landing_url": "https://www.jamendo.com/album/42894/everywhere",
+        "creator": "macouno",
+        "creator_url": "https://www.jamendo.com/artist/349079/macouno",
+        "url": null,
+        "filesize": null,
+        "filetype": null
+      },
+      "duration": 160000,
+      "bit_rate": null,
+      "sample_rate": null,
+      "thumbnail": "https://api.openverse.org/v1/audio/b386828e-b628-45f6-b900-6441a49cc977/thumb/",
+      "detail_url": "https://api.openverse.org/v1/audio/b386828e-b628-45f6-b900-6441a49cc977/",
+      "related_url": "https://api.openverse.org/v1/audio/b386828e-b628-45f6-b900-6441a49cc977/related/",
+      "waveform": "https://api.openverse.org/v1/audio/b386828e-b628-45f6-b900-6441a49cc977/waveform/",
+      "unstable__sensitivity": []
+    }
+  ]
+}

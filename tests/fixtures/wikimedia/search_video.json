@@ -1,0 +1,68 @@
+{
+  "batchcomplete": true,
+  "continue": {"gsroffset": 2, "continue": "gsroffset||"},
+  "query": {
+    "pages": [
+      {
+        "pageid": 107365060,
+        "ns": 6,
+        "title": "File:Rain falling on road.webm",
+        "index": 1,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 20744023,
+            "width": 1920,
+            "height": 1080,
+            "duration": 12.5,
+            "thumburl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Rain_falling_on_road.webm/320px--Rain_falling_on_road.webm.jpg",
+            "thumbwidth": 320,
+            "thumbheight": 180,
+            "url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Rain_falling_on_road.webm?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Rain_falling_on_road.webm",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=107365060",
+            "extmetadata": {
+              "ObjectName": {"value": "Rain falling on road", "source": "mediawiki-metadata"},
+              "Credit": {"value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>", "source": "commons-desc-page"},
+              "Artist": {"value": "<a href=\"//commons.wikimedia.org/wiki/User:Example\" title=\"User:Example\">Jane Example</a>", "source": "commons-desc-page"},
+              "LicenseShortName": {"value": "CC BY-SA 4.0", "source": "commons-desc-page", "hidden": ""},
+              "UsageTerms": {"value": "Creative Commons Attribution-Share Alike 4.0", "source": "commons-desc-page"},
+              "AttributionRequired": {"value": "true", "source": "commons-desc-page", "hidden": ""},
+              "LicenseUrl": {"value": "https://creativecommons.org/licenses/by-sa/4.0", "source": "commons-desc-page"},
+              "License": {"value": "cc-by-sa-4.0", "source": "commons-templates", "hidden": ""}
+            },
+            "mime": "video/webm"
+          }
+        ]
+      },
+      {
+        "pageid": 55512345,
+        "ns": 6,
+        "title": "File:Old newsreel clip.ogv",
+        "index": 2,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 5123456,
+            "width": 480,
+            "height": 854,
+            "duration": 30.0,
+            "thumburl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Old_newsreel_clip.ogv/320px--Old_newsreel_clip.ogv.jpg",
+            "thumbwidth": 320,
+            "thumbheight": 569,
+            "url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Old_newsreel_clip.ogv",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Old_newsreel_clip.ogv",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=55512345",
+            "extmetadata": {
+              "Credit": {"value": "<a href=\"https://archive.org/details/example\">Internet Archive</a>", "source": "commons-desc-page"},
+              "LicenseShortName": {"value": "Public domain", "source": "commons-desc-page", "hidden": ""},
+              "AttributionRequired": {"value": "false", "source": "commons-desc-page", "hidden": ""},
+              "License": {"value": "pd", "source": "commons-templates", "hidden": ""}
+            },
+            "mime": "video/ogg"
+          }
+        ]
+      }
+    ]
+  }
+}
