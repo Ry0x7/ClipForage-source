@@ -1,4 +1,4 @@
-// UNTESTED SPIKE: never loaded into Premiere. See docs/PREMIERE_UXP_SPIKE.md.
+// UNTESTED SPIKE: never loaded into Premiere. See README.md.
 //
 // Calls the local clipforage web API and renders result titles + license badges.
 // Confirmed in Adobe docs: global fetch() exists in UXP and is gated by

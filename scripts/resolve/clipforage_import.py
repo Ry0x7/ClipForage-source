@@ -18,8 +18,6 @@ restart Resolve and run it from Workspace > Scripts > clipforage_import.
 
 The import can also be run outside Resolve with ``clipforage resolve-import``.
 
-Pre-rename installs are still found: the ``memefinder`` config dir and
-``~/Downloads/memefinder`` are used when the ``clipforage`` ones do not exist.
 """
 
 from __future__ import annotations
@@ -30,7 +28,6 @@ from pathlib import Path
 from typing import Any
 
 BIN_NAME = "clipforage"
-LEGACY_NAME = "memefinder"  # pre-rename config dir / library folder name
 SKIP_SUFFIXES = {".json", ".part", ".ytdl", ".tmp"}
 
 
@@ -42,21 +39,13 @@ def _config_dir(name: str) -> Path:
 
 
 def config_path() -> Path:
-    """clipforage's config.toml (mirrors clipforage.config.config_path), else the legacy one."""
-    new = _config_dir(BIN_NAME)
-    old = _config_dir(LEGACY_NAME)
-    if not new.exists() and old.is_dir():
-        return old / "config.toml"
-    return new / "config.toml"
+    """ClipForage's config.toml (mirrors clipforage.config.config_path)."""
+    return _config_dir(BIN_NAME) / "config.toml"
 
 
 def _default_library_dir() -> Path:
-    """~/Downloads/clipforage, or ~/Downloads/memefinder if only the legacy folder exists."""
-    downloads = Path.home() / "Downloads"
-    new, old = downloads / BIN_NAME, downloads / LEGACY_NAME
-    if not new.exists() and old.is_dir():
-        return old
-    return new
+    """Default download folder: ~/Downloads/clipforage."""
+    return Path.home() / "Downloads" / BIN_NAME
 
 
 def library_dir() -> Path:

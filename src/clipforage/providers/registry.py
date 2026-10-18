@@ -14,7 +14,6 @@ from clipforage.models import SHORTS_MAX_DURATION_S, Asset, Kind, SearchFilters
 from clipforage.providers.base import Provider, ProviderError
 
 PLUGIN_GROUP = "clipforage.providers"
-LEGACY_PLUGIN_GROUP = "memefinder.providers"  # pre-rename group, still loaded
 
 logger = logging.getLogger("clipforage")
 
@@ -225,18 +224,13 @@ def load_plugins(*, warn: Callable[[str], None] | None = None) -> list[str]:
     Each entry point may load a ``Provider`` instance, a Provider class, or a zero-arg
     factory returning one. A failing plugin (import error, factory exception, non-Provider
     object, duplicate id) is reported to ``warn`` (default: the ``clipforage`` logger) as
-    ``plugin <name>: <reason>`` and skipped. The legacy ``memefinder.providers`` group is
-    loaded after it with the same isolation; an entry point name already processed (in either
-    group) is skipped, so this is idempotent and a plugin advertised in both groups loads once.
+    ``plugin <name>: <reason>`` and skipped. Entry point names already processed are skipped,
+    so repeated calls are idempotent.
     Returns the ids registered by this call.
     """
     report = warn or logger.warning
     registered: list[str] = []
-    eps = [
-        ep
-        for group in (PLUGIN_GROUP, LEGACY_PLUGIN_GROUP)
-        for ep in importlib.metadata.entry_points(group=group)
-    ]
+    eps = importlib.metadata.entry_points(group=PLUGIN_GROUP)
     for ep in eps:
         if ep.name in _SEEN_PLUGINS:
             continue

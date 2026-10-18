@@ -63,8 +63,6 @@ def _main() -> None:
     """Find and download editing resources with license info."""
     _make_encodable(sys.stdout)
     _make_encodable(sys.stderr)
-    for message in config.migrate_legacy_dirs():  # no-op unless pre-rename dirs exist
-        typer.echo(message, err=True)
 
 
 @app.command()
@@ -904,12 +902,6 @@ def serve(
 
         web_app = create_app(allowed_hosts=["*"]) if allow_remote else create_app()
         uvicorn.run(web_app, host=host, port=port, log_level="info")
-
-
-def legacy_main() -> None:
-    """Deprecated ``memefinder`` console script: warn once on stderr, then run ``clipforage``."""
-    print("memefinder was renamed to clipforage; this alias will be removed", file=sys.stderr)
-    app()
 
 
 if __name__ == "__main__":

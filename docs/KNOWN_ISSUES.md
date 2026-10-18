@@ -155,5 +155,3 @@ rare).
   `[table]` header may end up before a newly added key of the previous table (cosmetic).
 - **Low** Plugin providers run in-process as trusted code; a failed plugin is retried only after
   a restart.
-- **Low** The rename migration from `memefinder` runs only when the `clipforage` dir does not
-  exist yet; merge by hand if you created it first.

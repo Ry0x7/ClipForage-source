@@ -9,7 +9,7 @@ Requires [uv](https://docs.astral.sh/uv/) and Python 3.12+.
 
 ```sh
 git clone https://github.com/Ry0x7/ClipForage-source.git
-cd ClipForage
+cd ClipForage-source
 uv sync                    # installs deps + the dev group into .venv
 uv run pytest -x           # offline test suite (live tests are deselected)
 uv run pytest -m live      # optional: real network calls, keys as CLIPFORAGE_<ID>_KEY env vars
@@ -45,7 +45,7 @@ CI (`.github/workflows/ci.yml`) runs ruff and pytest on Ubuntu and Windows.
 ## Providers
 
 Read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) (sections 3 and 5) and
-[.claude/rules/providers.md](.claude/rules/providers.md) before touching providers or download
+[docs/PROVIDERS.md](docs/PROVIDERS.md) before touching providers or download
 code. Scraping is allowed only for the allowlist in that rules file; adding a site to it is a
 project decision, not a refactor. Every other site without an API is a link-out (`linkout.py`).
 
@@ -65,8 +65,3 @@ project decision, not a refactor. Every other site without an API is a link-out 
 
 Third-party providers can also ship as a separate package through the `clipforage.providers`
 entry point group (see "Provider plugins" in docs/ARCHITECTURE.md).
-
-## AI assistant files
-
-The `.claude/rules/providers.md` file holds the provider allowlist and scraping rules. It also serves
-as AI assistant instructions (Claude Code).
