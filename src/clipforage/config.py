@@ -1,7 +1,6 @@
 """User configuration: API keys from env vars or config.toml (read and write)."""
 
 import os
-import shutil
 import tomllib
 from collections.abc import MutableMapping
 from pathlib import Path
@@ -11,18 +10,12 @@ import tomlkit
 from tomlkit import TOMLDocument
 
 APP_NAME = "clipforage"
-LEGACY_APP_NAME = "memefinder"  # pre-rename name: legacy dirs and env vars are still read
 ENV_PREFIX = "CLIPFORAGE_"
-LEGACY_ENV_PREFIX = "MEMEFINDER_"
 
 
 def _env(name_suffix: str) -> str | None:
-    """Return ``CLIPFORAGE_<suffix>`` if set and non-empty, else ``MEMEFINDER_<suffix>``."""
-    for prefix in (ENV_PREFIX, LEGACY_ENV_PREFIX):
-        value = os.environ.get(prefix + name_suffix)
-        if value:
-            return value
-    return None
+    """Return ``CLIPFORAGE_<suffix>`` if set and non-empty."""
+    return os.environ.get(ENV_PREFIX + name_suffix) or None
 
 
 def _config_dir(name: str) -> Path:
@@ -54,74 +47,6 @@ def data_dir() -> Path:
     return _data_dir(APP_NAME)
 
 
-def _copy_tree(old: Path, new: Path) -> list[str]:
-    """Copy ``old`` into ``new``; a file that cannot be copied is skipped with a warning."""
-    skipped: list[str] = []
-
-    def copy_file(src: str, dst: str) -> str:
-        try:
-            return shutil.copy2(src, dst)
-        except OSError as exc:
-            skipped.append(f"warning: could not copy {src} ({exc}); skipped")
-            return dst
-
-    shutil.copytree(old, new, copy_function=copy_file, dirs_exist_ok=True)
-    return skipped
-
-
-def _migrate_dir(old: Path, new: Path, label: str, copy_name: str | None) -> list[str]:
-    if new.exists() or not old.is_dir():
-        return []
-    try:
-        old.rename(new)
-    except OSError as exc:
-        if copy_name and (old / copy_name).is_file():
-            try:
-                new.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(old / copy_name, new / copy_name)
-            except OSError as copy_exc:
-                return [f"warning: could not migrate {label} {old} -> {new}: {copy_exc}"]
-            return [
-                (
-                    f"warning: could not move {label} {old} -> {new} ({exc}); "
-                    f"copied {copy_name} only, the old folder was left in place"
-                )
-            ]
-        if copy_name is None:  # data dir: copy everything that can be copied, keep the old one
-            try:
-                skipped = _copy_tree(old, new)
-            except (OSError, shutil.Error) as copy_exc:
-                return [f"warning: could not migrate {label} {old} -> {new}: {copy_exc}"]
-            return [
-                *skipped,
-                (
-                    f"warning: could not move {label} {old} -> {new} ({exc}); "
-                    f"copied {label} {old} -> {new} (legacy folder kept)"
-                ),
-            ]
-        return [f"warning: could not move {label} {old} -> {new} ({exc}); old folder kept"]
-    return [f"memefinder was renamed to clipforage: moved {label} {old} -> {new}"]
-
-
-def migrate_legacy_dirs() -> list[str]:
-    """Move pre-rename ``memefinder`` config/data dirs to their ``clipforage`` names, once.
-
-    Only acts when the new dir does not exist and the old sibling does (cheap and idempotent).
-    The data dir holds cache.db and bin/. If a move fails (cross-device, permissions, a file in
-    use), only config.toml is copied for the config dir, the data dir is copied file by file
-    (files that cannot be copied, e.g. a locked cache.db, are skipped with a warning), the
-    legacy folders are never deleted, and a warning is returned. Returns
-    human-readable messages for the caller to print (empty when nothing happened).
-    """
-    messages = _migrate_dir(
-        _config_dir(LEGACY_APP_NAME), _config_dir(APP_NAME), "config dir", "config.toml"
-    )
-    old_data, new_data = _data_dir(LEGACY_APP_NAME), _data_dir(APP_NAME)
-    if old_data != _config_dir(LEGACY_APP_NAME):  # same dir when LOCALAPPDATA is unset
-        messages += _migrate_dir(old_data, new_data, "data dir", None)
-    return messages
-
-
 def load_config() -> dict[str, Any]:
     """Return the parsed config.toml, or {} if it does not exist.
 
@@ -135,8 +60,7 @@ def load_config() -> dict[str, Any]:
 
 
 def get_key(provider_id: str) -> str | None:
-    """Return a provider's API key: env `CLIPFORAGE_<ID>_KEY` (legacy `MEMEFINDER_<ID>_KEY`)
-    first, then `[keys]`."""
+    """Return a provider's API key: env `CLIPFORAGE_<ID>_KEY` first, then `[keys]`."""
     env_value = _env(f"{provider_id.upper()}_KEY")
     if env_value:
         return env_value
@@ -152,8 +76,8 @@ def get_key(provider_id: str) -> str | None:
 def get_setting(section: str, key: str, env: str | None = None) -> str | None:
     """Return a string setting: env var first (if non-empty), then `[section] key`.
 
-    ``env`` is the env var name without prefix: ``CLIPFORAGE_<env>`` is tried, then the legacy
-    ``MEMEFINDER_<env>``. TOML int/float values are returned as ``str(value)``; bools, tables,
+    ``env`` is the env var name without prefix: ``CLIPFORAGE_<env>``.
+    TOML int/float values are returned as ``str(value)``; bools, tables,
     arrays and empty strings give ``None``.
     """
     if env:
@@ -202,16 +126,8 @@ def has_key(provider_id: str) -> bool:
 
 
 def default_library_dir() -> Path:
-    """Default download folder: ``~/Downloads/clipforage``.
-
-    If that does not exist but the pre-rename ``~/Downloads/memefinder`` does, the old folder is
-    returned (user downloads are never moved).
-    """
-    downloads = Path.home() / "Downloads"
-    new, old = downloads / APP_NAME, downloads / LEGACY_APP_NAME
-    if not new.exists() and old.is_dir():
-        return old
-    return new
+    """Default download folder: ``~/Downloads/clipforage``."""
+    return Path.home() / "Downloads" / APP_NAME
 
 
 def library_dir() -> Path:

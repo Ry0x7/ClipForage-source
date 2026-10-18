@@ -26,14 +26,6 @@
   const FILTERS_OPEN_KEY = "clipforage.filtersOpen";
   const DISMISSED_KEY = "clipforage.dismissedNotices";
   const JOB_META_KEY = "clipforage.jobMeta";
-  // One-time move of the pre-rename memefinder.* keys: read old if new is missing, then drop old.
-  for (const [oldKey, newKey] of [["memefinder.search", STORE_KEY], ["memefinder.chroma", CHROMA_KEY]]) {
-    try {
-      const old = localStorage.getItem(oldKey);
-      if (old !== null && localStorage.getItem(newKey) === null) localStorage.setItem(newKey, old);
-      if (old !== null) localStorage.removeItem(oldKey);
-    } catch (_) { /* storage unavailable: nothing to migrate */ }
-  }
   const CHROMA_MAX_WIDTH = 640;
   const CHROMA_SOFTNESS = 24;
   const CHROMA_TOL_MAX = 120;

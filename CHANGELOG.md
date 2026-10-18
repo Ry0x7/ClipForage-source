@@ -4,6 +4,20 @@ All notable changes to this project are documented in this file. The format is b
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Reworked the README for non-coders with a pixel-art banner, step-by-step setup,
+  first-download walkthrough and troubleshooting.
+- Consolidated provider rules into the contributor docs and removed dated research write-ups.
+- Added an optional Ko-fi support link.
+
+### Removed
+
+- Deprecated command aliases, environment-variable fallbacks, directory and browser-storage
+  migrations, alternate request headers and obsolete provider plugin entry points.
+
 ## [0.1.0] - Unreleased
 
 First public release.

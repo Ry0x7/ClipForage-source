@@ -1,7 +1,7 @@
 """FastAPI app for the local web UI. Meant to be served on 127.0.0.1 only.
 
-Every state-changing request (anything but GET/HEAD/OPTIONS) must send ``X-Clipforage: 1`` (the
-pre-rename ``X-Memefinder: 1`` is still accepted); browsers cannot add that header to a
+Every state-changing request (anything but GET/HEAD/OPTIONS) must send ``X-Clipforage: 1``;
+browsers cannot add that header to a
 cross-site form post, and there is no CORS middleware.
 """
 
@@ -70,7 +70,6 @@ from clipforage.web.schemas import (
 )
 
 CSRF_HEADER = "X-Clipforage"
-LEGACY_CSRF_HEADER = "X-Memefinder"  # pre-rename header, still accepted
 SAFE_METHODS = frozenset({"GET", "HEAD", "OPTIONS"})
 ORIENTATIONS: tuple[str, ...] = ("landscape", "portrait", "square")
 STYLES: tuple[str, ...] = get_args(Style)
@@ -325,8 +324,6 @@ def create_app(allowed_hosts: list[str] | None = None) -> FastAPI:
     ``allowed_hosts`` are extra ``Host`` header values accepted on top of the loopback names
     (used by ``serve --allow-remote``); anything else gets a 400 (DNS-rebinding guard).
     """
-    for message in config.migrate_legacy_dirs():  # no-op unless pre-rename dirs exist
-        print(message, file=sys.stderr)
 
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
@@ -344,11 +341,7 @@ def create_app(allowed_hosts: list[str] | None = None) -> FastAPI:
     async def guard(
         request: Request, call_next: Callable[[Request], Awaitable[Response]]
     ) -> Response:
-        if (
-            request.method not in SAFE_METHODS
-            and request.headers.get(CSRF_HEADER) != "1"
-            and request.headers.get(LEGACY_CSRF_HEADER) != "1"
-        ):
+        if request.method not in SAFE_METHODS and request.headers.get(CSRF_HEADER) != "1":
             return JSONResponse({"detail": f"missing {CSRF_HEADER}: 1 header"}, status_code=403)
         response = await call_next(request)
         if request.url.path.startswith("/api/") and "cache-control" not in response.headers:

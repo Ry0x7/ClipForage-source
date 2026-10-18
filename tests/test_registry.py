@@ -511,18 +511,13 @@ def test_load_builtins_loads_plugins_after_builtins_idempotently(
     assert registry.load_plugins() == []
 
 
-def test_load_plugins_also_loads_legacy_group(monkeypatch: pytest.MonkeyPatch) -> None:
-    groups = {
-        "clipforage.providers": [FakeEntryPoint("new", FakeProvider("plug_new"))],
-        "memefinder.providers": [
-            FakeEntryPoint("old", FakeProvider("plug_old")),
-            FakeEntryPoint("old_broken", ImportError("gone")),
-            FakeEntryPoint("new", FakeProvider("plug_new_again")),  # same name: loaded once
-        ],
-    }
-    monkeypatch.setattr("importlib.metadata.entry_points", lambda *, group: groups.get(group, []))
-    warnings: list[str] = []
-    assert registry.LEGACY_PLUGIN_GROUP == "memefinder.providers"
-    assert registry.load_plugins(warn=warnings.append) == ["plug_new", "plug_old"]
-    assert warnings == ["plugin old_broken: ImportError: gone"]
-    assert registry.load_plugins() == []
+def test_load_plugins_uses_only_public_entry_point_group(monkeypatch: pytest.MonkeyPatch) -> None:
+    requested_groups: list[str] = []
+
+    def entry_points(*, group: str) -> list[FakeEntryPoint]:
+        requested_groups.append(group)
+        return [FakeEntryPoint("public", FakeProvider("plug_public"))]
+
+    monkeypatch.setattr("importlib.metadata.entry_points", entry_points)
+    assert registry.load_plugins() == ["plug_public"]
+    assert requested_groups == ["clipforage.providers"]

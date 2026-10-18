@@ -1,4 +1,3 @@
-import os
 from collections.abc import Iterator
 from pathlib import Path
 
@@ -26,14 +25,6 @@ def _isolated_dirs(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         ("USERPROFILE", "home"),
     ):
         monkeypatch.setenv(var, str(tmp_path / sub))
-
-
-@pytest.fixture(autouse=True)
-def _no_legacy_env(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Drop pre-rename MEMEFINDER_* vars so the legacy env fallback never leaks into tests."""
-    for var in list(os.environ):
-        if var.upper().startswith("MEMEFINDER_"):
-            monkeypatch.delenv(var)
 
 
 @pytest.fixture(autouse=True)

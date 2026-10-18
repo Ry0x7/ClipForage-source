@@ -252,16 +252,6 @@ def test_extra_allowed_host() -> None:
         assert response.status_code == 400
 
 
-def test_create_app_migrates_legacy_config_dir(capsys: pytest.CaptureFixture[str]) -> None:
-    old = config._config_dir("memefinder")
-    old.mkdir(parents=True)
-    (old / "config.toml").write_text('[keys]\npixabay = "x"\n', encoding="utf-8")
-    web_app.create_app()
-    assert "renamed to clipforage" in capsys.readouterr().err
-    assert not old.exists()
-    assert config.load_config()["keys"]["pixabay"] == "x"
-
-
 @respx.mock
 def test_preview_redirect_to_other_host_is_502(client: TestClient) -> None:
     mock_apis()
@@ -486,11 +476,10 @@ def test_post_without_header_is_403(client: TestClient) -> None:
     assert response.status_code == 403
 
 
-@pytest.mark.parametrize("header", ["X-Clipforage", "X-Memefinder"])
-def test_mutating_request_with_new_or_legacy_header_passes_guard(
-    client: TestClient, header: str
-) -> None:
-    response = client.put("/api/settings/keys/pexels", json={"key": "abc"}, headers={header: "1"})
+def test_mutating_request_with_clipforage_header_passes_guard(client: TestClient) -> None:
+    response = client.put(
+        "/api/settings/keys/pexels", json={"key": "abc"}, headers={"X-Clipforage": "1"}
+    )
     assert response.status_code == 200
     assert config.load_config()["keys"]["pexels"] == "abc"
 

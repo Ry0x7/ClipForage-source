@@ -1,49 +1,186 @@
+![ClipForage — Find your next edit. Pixel-art folder of footage and a video-editing timeline.](docs/img/pixel-banner.png)
+
 # ClipForage
 
 [![CI](https://github.com/Ry0x7/ClipForage-source/actions/workflows/ci.yml/badge.svg)](https://github.com/Ry0x7/ClipForage-source/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/downloads/)
 
-One search for green-screen memes, B-roll, overlays, SFX, music, fonts and LUTs from YouTube and
-free stock libraries, with the license on every result and one-click mp4/mp3 downloads.
+**Find footage, memes and sounds for your next edit — in one place.**
+
+ClipForage is a free, open-source app for video editors. Search YouTube and free stock
+libraries, preview results, see the license, and download clips or audio to your computer.
+It runs locally and opens in your browser.
+
+**No coding needed to use the app.** The first setup uses a few copy-and-paste commands;
+after that, search and download with buttons. You can start without API keys or AI.
+Some extra sources need a free API key, and optional AI assist may cost money.
+
+[Get started](#install) · [Your first download](#your-first-download) ·
+[Troubleshooting](#troubleshooting) · [Sources](#providers) · [Contribute](#contributing)
 
 ![ClipForage web UI](docs/img/web-ui.png)
 
-**Status: alpha.** Search across ten sources, downloads (including clip ranges), the local web
-UI, license and rights labels, safe search, fuzzy meme recall, phrase search, green-screen
-key-out and DaVinci Resolve import all work and are covered by tests. Not verified yet: dropping
-a file dragged from the web UI onto an editor timeline, importing transparent `.key.webm` files
-into editors, the Pexels provider against its live API, and the Anthropic SDK assist backend.
-Known limitations are in [docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md).
+> **Alpha:** ready to try, still being improved. Searches and downloads depend on the source.
+> Editor drag-and-drop, transparent-video import, the live Pexels API and the Anthropic AI
+> backend are not yet verified. See [known issues](docs/KNOWN_ISSUES.md) for current limits.
 
-## How it works
+## What can I find?
 
-- **Python 3.12**, packaged with `uv` (src layout, hatchling).
-- **Typer CLI** (`clipforage`) and a **FastAPI** local web UI written in vanilla JS, both on one
-  typer-free service layer.
-- **yt-dlp + ffmpeg** for YouTube search, downloads, clip ranges, mp3 extraction and chroma
-  key-out; ffmpeg and Deno are fetched on demand by `clipforage setup`, never bundled.
-- **Provider plugin protocol**: each source is a module with `search()` and `resolve()`;
-  third-party providers load through Python entry points.
-- **SQLite cache** for search results (per-provider TTL), the phrase-search caption index (FTS5)
-  and download history.
-- **~1,200 tests** with pytest; HTTP is mocked with respx against recorded fixtures and yt-dlp
-  is faked, so the suite runs offline. CI runs ruff and pytest on Ubuntu and Windows.
+| For your edit | Try searching for | What you can do |
+|---|---|---|
+| Memes and green screens | `crying cat`, `green screen explosion` | Preview and download clips; remove a green background into a transparent WebM. |
+| B-roll (supporting footage) | `rain city`, `ocean sunset` | Find footage and filter by orientation or duration. |
+| Music and sound effects | `lofi`, `whoosh`, `applause` | Search audio and download tracks or sound effects. |
+| Images, fonts and overlays | `paper texture`, `handwriting` | Explore images, fonts and animated graphics. Some sources need keys. |
+| A spoken line | `never gonna give you up` | Use Phrase mode to look for words in captions and download that moment. |
 
-Design details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+Every result shows the license information reported by its source, including whether credit
+is required or commercial use is allowed. Downloads include a matching `.json` text file with
+the source, license and attribution details to keep with your media.
 
-## What it does
+## Install
 
-- **Meme / green-screen edits:** find green-screen meme clips (YouTube via yt-dlp), meme sounds
-  and music (YouTube, Freesound, Openverse), and download mp4/mp3, including clip ranges. Find a
-  meme by describing it ("dog in burning room") instead of knowing its name. Key out the green
-  screen into a transparent WebM.
-- **Cinematic edits:** find free B-roll (Pexels, Pixabay, Mixkit, Internet Archive, Wikimedia
-  Commons), filtered by orientation and duration, plus links out to free LUT packs.
-- **Vlog edits:** find music and SFX, animated overlays (LottieFiles), fonts (Google Fonts) and
-  images (Openverse) for intros, lower thirds and transitions.
-- **License on every result:** license, attribution text, source URL, commercial-use status and
-  a rights level ("Free to use", "Credit required", "Non-commercial only", "Copyrighted – Content
-  ID likely", "Check license at source") are shown per result. License info is also saved in a
-  sidecar `.json` next to each download.
+You need an internet connection and a Windows, macOS or Linux computer. ClipForage currently
+installs from this GitHub repository; these steps use **uv** (an installer that also manages
+Python) and **Git** (which fetches the app). You do not need to install Python separately.
+
+Paste one command at a time into the command window and press **Enter**. Wait for each command
+to finish before continuing. Messages scrolling past are normal during installation.
+
+### 1. Install the setup tools once
+
+<details open>
+<summary><strong>Windows (PowerShell)</strong></summary>
+
+Open the Start menu, type **PowerShell**, and open it. Paste these commands one at a time:
+
+```powershell
+winget install --id astral-sh.uv -e
+winget install --id Git.Git -e
+```
+
+Accept the installer prompts if asked. Once both finish, **close PowerShell and open it again**
+so it can find the new tools. Already have uv or Git? Skip that tool's install command.
+
+If `winget` is unavailable, use the [uv installation guide](https://docs.astral.sh/uv/getting-started/installation/)
+and [Git installer](https://git-scm.com/downloads), then reopen PowerShell.
+
+</details>
+
+<details>
+<summary><strong>macOS</strong></summary>
+
+Open **Terminal** (search for it with Spotlight). Install uv:
+
+```sh
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+Install Git using the [Git installation guide](https://git-scm.com/downloads/mac).
+On macOS, ClipForage also needs you to install ffmpeg separately. If you already use
+[Homebrew](https://brew.sh/), run:
+
+```sh
+brew install ffmpeg
+```
+
+Otherwise, follow the Homebrew setup instructions first. Then **close Terminal and reopen it**.
+
+</details>
+
+<details>
+<summary><strong>Linux</strong></summary>
+
+Open your terminal and install uv:
+
+```sh
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+Install Git with your distribution's package manager; for example, on Ubuntu or Debian:
+
+```sh
+sudo apt install git
+```
+
+Then **close the terminal and reopen it**.
+
+</details>
+
+### 2. Install ClipForage
+
+In your reopened PowerShell or terminal window, run:
+
+```sh
+uv tool install --python 3.12 git+https://github.com/Ry0x7/ClipForage-source
+uv tool update-shell
+```
+
+**Close and reopen the command window once more** so it can find the `clipforage` command.
+For more about the installer, see the [uv tool guide](https://docs.astral.sh/uv/guides/tools/).
+
+### 3. Finish setup and open the app
+
+```sh
+clipforage setup
+clipforage serve
+```
+
+The setup command downloads the media tools ffmpeg and Deno on supported Windows/Linux systems;
+on macOS it downloads Deno and reminds you to install ffmpeg separately.
+The second command opens the app at **[http://127.0.0.1:8765](http://127.0.0.1:8765)**.
+This address is the app running on your own computer.
+
+**Keep the command window open while you use ClipForage.** If the browser does not open
+automatically, click the address above or paste it into your browser.
+
+### Open it again next time
+
+Open PowerShell or Terminal and run:
+
+```sh
+clipforage serve
+```
+
+You only need to install and set up once. To stop the app, return to the command window and
+press **Ctrl+C**. Closing just the browser tab leaves the app running.
+
+## Your first download
+
+1. In the **Search** tab, leave Mode set to **Assets**.
+2. Type something like `crying cat`, `rain b-roll` or `whoosh`. Choose a **Kind** and, for videos,
+   a **Style** such as **Meme**, **Green screen** or **Cinematic**, then click **Search**.
+3. Click a thumbnail to preview a result. Read its rights badge and use **Source** to check
+   the original page. **Filters → Cleared for use only** hides results marked copyrighted,
+   non-commercial or with unknown rights; credit or other license conditions may still apply.
+4. Click **Download** to save the asset. On YouTube video results, **MP3** saves just the audio.
+5. Open **Downloads** or **History**, then use **Show in folder** to find the saved file.
+   Import it into your video editor as you would any other media file.
+
+New installs save to **Downloads → clipforage** in your home folder. Change this in
+**Settings → Library folder**. Keep the matching `.json` file for the source and credit details.
+
+**Start with the built-in sources.** YouTube, Openverse, Wikimedia Commons and Internet Archive
+work without API keys. For Pexels, Pixabay, Freesound and Google Fonts, add your own key in
+**Settings**. An API key is a code a source gives you to let ClipForage access its service.
+See the [source list](#providers) for all options.
+
+**The app's MIT license covers its code; each downloaded asset has its own terms.** Check
+the source page before publishing your edit.
+
+## Troubleshooting
+
+| What you see | What to try |
+|---|---|
+| `uv` or `git` is not recognized / command not found | Close and reopen the command window after installing the setup tools. If it still fails, check that tool's installation guide in step 1. |
+| `clipforage` is not recognized / command not found | Run `uv tool update-shell`, then close and reopen the command window. If installation reported an error, resolve it and repeat step 2. |
+| The browser page will not load | Run `clipforage serve` and leave its window open. Open `http://127.0.0.1:8765` manually. |
+| Address already in use / port 8765 is busy | ClipForage may already be running; try the browser address first. Otherwise run `clipforage serve --port 8766` and open `http://127.0.0.1:8766`. |
+| Downloads report missing ffmpeg or Deno | Run `clipforage setup` again, then `clipforage doctor` to see which tools are found. On macOS, install ffmpeg separately as shown above. |
+| A source has no results or asks for a key | Try a different query or source. Add a key in **Settings** for sources that require one. A source can also be temporarily unavailable. |
+
+Still stuck? Check [known issues](docs/KNOWN_ISSUES.md) or
+[open an issue](https://github.com/Ry0x7/ClipForage-source/issues). Include your operating system,
+what you tried, and the error message. Remove API keys or other private details before posting.
 
 ## What works today, and what doesn't
 
@@ -69,40 +206,10 @@ For editors, especially short-form clippers (checked in a live run on 2026-10-06
 - It does not generate memes. The optional AI assist only turns a description into search
   queries.
 
-## Install
+## Advanced reference
 
-ClipForage is not on PyPI; install it from GitHub. Either way you need
-[uv](https://docs.astral.sh/uv/) or [pipx](https://pipx.pypa.io/).
-
-On Windows, install uv first with `winget install astral-sh.uv` (or, in PowerShell,
-`irm https://astral.sh/uv/install.ps1 | iex`). uv fetches Python 3.12 itself, so you do not need
-to install Python separately.
-
-```sh
-uv tool install git+https://github.com/Ry0x7/ClipForage-source
-# or
-pipx install git+https://github.com/Ry0x7/ClipForage-source
-
-clipforage setup   # fetches ffmpeg + Deno into your user data dir
-clipforage serve   # opens the local web UI at http://127.0.0.1:8765
-```
-
-CLI instead: `clipforage search "green screen meme" --kind video`, then
-`clipforage get <provider>:<id>`. The web UI is local-only (no accounts, no auth).
-
-### From a clone (development)
-
-```sh
-git clone https://github.com/Ry0x7/ClipForage-source.git
-cd ClipForage
-uv sync
-uv run clipforage setup
-uv run clipforage serve
-```
-
-The examples in this README assume a tool install and use bare `clipforage ...`. Contributors
-working from a clone run them as `uv run clipforage ...`. See [CONTRIBUTING.md](CONTRIBUTING.md)
-for tests and lint.
+The browser app is enough for everyday use. The sections below cover configuration,
+command-line use, optional AI and integrations.
 
 ## Configuration
 
@@ -280,7 +387,8 @@ with `[scrape] enabled = false` or `CLIPFORAGE_SCRAPE_ENABLED=0`.
 change makes that source fail (the search continues without it), and a site may object to
 automated access at any time. Treat these sources as a convenience, not a guarantee.
 Uppbeat, Videvo/Freepik, Pixabay Music, PlayPhrase, YouTube Audio Library, Zapsplat, TikTok,
-Instagram Reels and the LUT sites stay link-out only; see [docs/RESEARCH.md](docs/RESEARCH.md) for why.
+Instagram Reels and the LUT sites stay link-out only because they do not offer a suitable
+search API for this app.
 
 ## Web UI
 
@@ -344,12 +452,45 @@ Add keys in the web UI settings, in `config.toml`, or via `CLIPFORAGE_<PROVIDER>
 terms; sites without an API (Zapsplat, Uppbeat, LUT packs, ...) are link-outs
 (`clipforage links`).
 
+## For developers
+
+### From a clone (development)
+
+```sh
+git clone https://github.com/Ry0x7/ClipForage-source.git
+cd ClipForage-source
+uv sync
+uv run clipforage setup
+uv run clipforage serve
+```
+
+The examples in this README assume a tool install and use bare `clipforage ...`. Contributors
+working from a clone run them as `uv run clipforage ...`. See [CONTRIBUTING.md](CONTRIBUTING.md)
+for tests and lint.
+
+### How it works
+
+- **Python 3.12+**, packaged with `uv` (src layout, hatchling).
+- **Typer CLI** (`clipforage`) and a **FastAPI** local web UI written in vanilla JS, both on one
+  typer-free service layer.
+- **yt-dlp + ffmpeg** for YouTube search, downloads, clip ranges, mp3 extraction and chroma
+  key-out. `clipforage setup` fetches ffmpeg and Deno where supported; macOS needs a separate
+  ffmpeg install. Binaries are never bundled.
+- **Provider plugin protocol**: each source is a module with `search()` and `resolve()`;
+  third-party providers load through Python entry points.
+- **SQLite cache** for search results (per-provider TTL), the phrase-search caption index (FTS5)
+  and download history.
+- **Offline tests** with pytest; HTTP is mocked with respx against recorded fixtures and yt-dlp
+  is faked. CI runs ruff and pytest on Ubuntu and Windows.
+
+Design details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
 ## Docs
 
 - [CONTRIBUTING.md](CONTRIBUTING.md): dev setup, conventions, adding a provider
 - [docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md): known limitations and quirks
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): design and decisions
-- [docs/RESEARCH.md](docs/RESEARCH.md): provider, scraping and legal research
+- [docs/PROVIDERS.md](docs/PROVIDERS.md): provider contracts and source rules
 - [docs/EDITORS.md](docs/EDITORS.md): getting downloads into DaVinci Resolve, Premiere Pro and others
 - [DISCLAIMER.md](DISCLAIMER.md): legal disclaimer
 
@@ -357,11 +498,11 @@ terms; sites without an API (Zapsplat, Uppbeat, LUT packs, ...) are link-outs
 
 Issues and PRs welcome; see [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Support ClipForage
+
+If ClipForage saves you time on your edits, you can [support its development on Ko-fi](https://ko-fi.com/ry0x7).
+The app is free and open source; support is optional and appreciated.
+
 ## License
 
 MIT, see [LICENSE](LICENSE). See also [DISCLAIMER.md](DISCLAIMER.md).
-
-## Migrating from memefinder
-
-Renamed from MemeLibraryFinder: the old `memefinder` command and `MEMEFINDER_<PROVIDER>_KEY`
-variables still work, and the old config and data dirs are moved to `clipforage` on first run.

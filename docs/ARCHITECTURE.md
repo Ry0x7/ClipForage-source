@@ -1,6 +1,7 @@
 # ClipForage: Architecture
 
-Last reviewed: 2026-10-03. C4-lite; research in [RESEARCH.md](RESEARCH.md).
+Implementation overview for contributors. See [CONTRIBUTING.md](../CONTRIBUTING.md) for setup
+and [KNOWN_ISSUES.md](KNOWN_ISSUES.md) for current limitations.
 
 ## 1. Context
 
@@ -158,7 +159,7 @@ Discovery: `providers/registry.py` registers the in-repo provider classes, then 
 
 ### Provider plugins
 
-Third-party packages can add providers without forking. `registry.load_builtins()` registers the built-ins, then calls `registry.load_plugins()`, which iterates `importlib.metadata.entry_points(group="clipforage.providers")` and then the pre-rename group `memefinder.providers` (`LEGACY_PLUGIN_GROUP`, same isolation; an entry point name already seen in the new group is skipped).
+Third-party packages can add providers without forking. `registry.load_builtins()` registers the built-ins, then calls `registry.load_plugins()`, which iterates `importlib.metadata.entry_points(group="clipforage.providers")`; previously processed entry point names are skipped.
 
 - An entry point may load a `Provider` instance, a Provider class, or a zero-arg factory returning one; the result must pass `isinstance(obj, Provider)` (the Protocol is `runtime_checkable`).
 - Built-ins are registered first, so a plugin reusing a built-in id is rejected as a duplicate.
@@ -190,7 +191,7 @@ YouTube search (`providers/youtube.py`) is style-aware. `SearchFilters.style` (`
 
 Audio on YouTube. `youtube` also serves `audio_music` and `audio_sfx`: the same search without the style term, duration caps of 900 s (music) and 60 s (SFX), and a `resolve()` plan that downloads mp3 (yt-dlp FFmpegExtractAudio). The rights check labels these "Copyrighted – Content ID likely".
 
-Link-out directory (`linkout.py`, shown as links, never searched or scraped): Videvo (now Freepik Videos), Zapsplat, Uppbeat, YouTube Audio Library, Pixabay Music, RocketStock free LUTs (now a Shutterstock blog post), IWLTBAP free LUTs, PlayPhrase (quote lookup), TikTok and Instagram Reels (browse only; nearly all content copyrighted). Mixkit and LottieFiles were link-outs until 2026-10-03 and are now scraping providers. Why the rest stay link-outs: [RESEARCH.md](RESEARCH.md#scraping-feasibility-2026-10-03).
+Link-out directory (`linkout.py`, shown as links, never searched or scraped): Videvo (now Freepik Videos), Zapsplat, Uppbeat, YouTube Audio Library, Pixabay Music, RocketStock free LUTs (now a Shutterstock blog post), IWLTBAP free LUTs, PlayPhrase (quote lookup), TikTok and Instagram Reels (browse only; nearly all content copyrighted). Mixkit and LottieFiles were link-outs until 2026-10-03 and are now scraping providers.
 
 ## 4. Main data flow
 
@@ -265,7 +266,7 @@ of `MP4_FORMAT` and keeps a bare `b` last, so a source without a small enough re
 downloads. `build_ydl_opts` / `download_url` / `download_plan` take `quality`; mp3 ignores it
 (always 192 kbps), and `http` plans (stock files, http clips via ffmpeg) are a single rendition
 and ignore it. `service.resolve_quality` uses the explicit value, else `[download] quality` /
-`CLIPFORAGE_QUALITY` (legacy `MEMEFINDER_QUALITY`), else none (best); `download_ref` only reads
+`CLIPFORAGE_QUALITY`, else none (best); `download_ref` only reads
 the setting for `ytdlp` plans. A bad value raises `RefError` (service, CLI `error:` exit 1) or
 `DownloadError` (downloader); the API rejects it with 422. The sidecar records `quality`
 (`best` when none) for yt-dlp downloads. `GET /api/settings` lists `qualities`.
@@ -303,13 +304,12 @@ with libvpx-vp9 (`ffmpeg -c:v libvpx-vp9 -i x.key.webm`, which reports `yuva420p
 
 ## 5. Cross-cutting concerns
 
-Config & keys (D5). Keys come from `%APPDATA%\clipforage\config.toml` (Windows), `~/.config/clipforage/config.toml` (others), or env `CLIPFORAGE_<PROVIDER>_KEY` (pre-rename `MEMEFINDER_<PROVIDER>_KEY` is the fallback, via `config._env`); env wins. Nothing is shipped. Providers without a key are hidden from search, and the CLI prints a one-line hint on how to add one.
+Config & keys (D5). Keys come from `%APPDATA%\clipforage\config.toml` (Windows), `~/.config/clipforage/config.toml` (others), or env `CLIPFORAGE_<PROVIDER>_KEY`; env wins. Nothing is shipped. Providers without a key are hidden from search, and the CLI prints a one-line hint on how to add one.
 
 Cache & TTL (D6). `cache.db` (SQLite, user data dir: `%LOCALAPPDATA%\clipforage` on Windows, `~/.local/share/clipforage` or `$XDG_DATA_HOME/clipforage` elsewhere) stores search responses keyed by provider + query + kind + filters, with a per-provider TTL: Pixabay 24h (ToS), the scraping providers and Internet Archive / Google Fonts 24h, default 1h. The filters (including `safe`) are part of the key. The cache stores raw provider results; filters and safe search are applied again on every cache hit. Empty results follow the `cache_empty_results` rule (section 3). A generic blob table holds the Know Your Meme lookups (7 days). It also records download history. Downloads go to a user-chosen library folder.
 
-Rename migration. The project was renamed from MemeLibraryFinder (`memefinder`) to ClipForage. `config.migrate_legacy_dirs()` runs from the CLI callback and from `create_app()`: if the `clipforage` config or data dir is missing and the old `memefinder` sibling exists, it is moved (renamed) to the new name; if the move fails, only `config.toml` is copied and a warning is printed to stderr. `~/Downloads/memefinder` is never moved: it stays the default library while `~/Downloads/clipforage` does not exist. A deprecated `memefinder` console script prints a one-line notice and runs `clipforage`.
 
-Runtime binaries (D4). ffmpeg and Deno are not committed. `clipforage doctor` checks PATH and the user data dir for ffmpeg, Deno, and the yt-dlp version. `clipforage setup` downloads official releases into the `bin/` subfolder of the user data dir (Stacher / Media Downloader pattern); data-dir binaries win over PATH. Cookies-from-browser is opt-in: `clipforage get --cookies-from-browser BROWSER[+KEYRING][:PROFILE][::CONTAINER]`, or `[download] cookies_from_browser` in `config.toml`, or env `CLIPFORAGE_COOKIES_FROM_BROWSER` (legacy `MEMEFINDER_COOKIES_FROM_BROWSER`; env wins over the file; the CLI flag wins over both). The bgutil PO-token provider is opt-in only (not implemented).
+Runtime binaries (D4). ffmpeg and Deno are not committed. `clipforage doctor` checks PATH and the user data dir for ffmpeg, Deno, and the yt-dlp version. `clipforage setup` downloads official releases into the `bin/` subfolder of the user data dir (Stacher / Media Downloader pattern); data-dir binaries win over PATH. Cookies-from-browser is opt-in: `clipforage get --cookies-from-browser BROWSER[+KEYRING][:PROFILE][::CONTAINER]`, or `[download] cookies_from_browser` in `config.toml`, or env `CLIPFORAGE_COOKIES_FROM_BROWSER` (env wins over the file; the CLI flag wins over both). The bgutil PO-token provider is opt-in only (not implemented).
 
 Logging & errors. Each provider search runs isolated with a timeout; one provider failing never fails the whole search: its error becomes a warning row. yt-dlp breakage (bot check, missing JS runtime, extractor error) is caught and surfaced with a clear message and the fix ("run `clipforage doctor`", "update yt-dlp"), not a stack trace. `--verbose` adds debug logs.
 
@@ -426,7 +426,7 @@ guarantee.
 
 ### Scraping layer
 
-Scraping is allowed only for an allowlist (`.claude/rules/providers.md`): Mixkit list pages
+Scraping is allowed only for an allowlist ([provider rules](PROVIDERS.md)): Mixkit list pages
 (`providers/mixkit.py`), the LottieFiles GraphQL endpoint (`providers/lottiefiles.py`) and Know
 Your Meme entry pages plus its confirmed-memes sitemap (`recall_online.py`, sitemap at most once
 per 7 days). Every such request goes through `scrape.py`
@@ -547,7 +547,7 @@ Security model. Local, single-user, no authentication:
   400 (DNS-rebinding guard). `--allow-remote` disables this check entirely (`allowed_hosts=["*"]`),
   prints a warning, and still adds no auth; it cannot be combined with `--reload`.
 - Every non-GET/HEAD/OPTIONS request must carry `X-Clipforage: 1` (blocks simple cross-site form
-  posts, which cannot set custom headers); the pre-rename `X-Memefinder: 1` is still accepted.
+  posts, which cannot set custom headers).
 - `/api/preview` only proxies the `preview_url` of an asset already in the search cache (looked up
   by `provider:id`), http(s) only, and fails if the upstream redirects to another site. It is not
   an open proxy.
@@ -559,8 +559,7 @@ Security model. Local, single-user, no authentication:
 
 ### Editor integration (M4)
 
-The library folder (`config.library_dir()`, default `~/Downloads/clipforage`, or an existing
-`~/Downloads/memefinder` from before the rename) is the stable,
+The library folder (`config.library_dir()`, default `~/Downloads/clipforage`) is the stable,
 flat import folder that editors watch or import from. There is no Python-side folder watcher
 (decision): every editor already has folder import, and watching would add a long-running
 process for no gain.
@@ -591,9 +590,8 @@ imports new ones into a `clipforage` bin of the current project with one `Import
 Workspace > Scripts menu that does not need clipforage installed. Details:
 [EDITORS.md](EDITORS.md).
 
-Premiere Pro. A UXP panel spike ([PREMIERE_UXP_SPIKE.md](PREMIERE_UXP_SPIKE.md)) concluded
-GO-LATER; the untested skeleton lives in `spikes/premiere-uxp/`. `spikes/` holds throwaway
-research code that is not part of the package or the test suite.
+Premiere Pro currently uses folder import. The untested `spikes/premiere-uxp/` prototype is
+not part of the package or test suite.
 
 ### Phrase search
 
@@ -687,9 +685,8 @@ clips (`get internet_archive:<id> --clip`) go through the ffmpeg HTTP clip path 
   level is a heuristic, not legal advice.
 - Safe search is best effort (false positives and misses).
 - YouTube can break yt-dlp at any time (bot checks, PO tokens); fixes depend on upstream.
-- DaVinci Resolve import is done (M4, `clipforage resolve-import`). A Premiere UXP panel is
-  GO-LATER ([PREMIERE_UXP_SPIKE.md](PREMIERE_UXP_SPIKE.md)); until then Premiere uses folder
-  import or drag-out. CapCut has no API.
+- DaVinci Resolve import uses `clipforage resolve-import`. Premiere uses folder import or
+  drag-out; a supported Premiere panel is not available.
 - Chroma key: a one-colour green key with a tolerance slider (in-browser preview and
   `keyout` export to a transparent VP9 WebM), not a keying editor.
 - LUTs and most overlay packs have no API: link-out only.
@@ -755,8 +752,6 @@ scripts/
 spikes/
   premiere-uxp/     # untested Premiere UXP panel skeleton (GO-LATER)
 docs/
-  RESEARCH.md
   ARCHITECTURE.md
   EDITORS.md
-  PREMIERE_UXP_SPIKE.md
 ```

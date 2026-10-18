@@ -138,12 +138,7 @@ ClipForage does not export other alpha formats (such as ProRes 4444 `.mov`) yet.
 
 ## Premiere Pro
 
-There is no Premiere Pro integration yet. A UXP panel was researched and the decision is
-GO-LATER: dragging from a third-party panel into the timeline needs Premiere Pro 27, and
-loopback/CORS access from a panel to the local server is unconfirmed. See
-[PREMIERE_UXP_SPIKE.md](PREMIERE_UXP_SPIKE.md).
-
-Meanwhile:
+There is no supported Premiere Pro panel yet. Use one of these workflows:
 
 - Import the library folder (File > Import, or the Media Browser panel). The folder is flat,
   so new downloads appear there directly.

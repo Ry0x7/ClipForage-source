@@ -362,8 +362,7 @@ def download_url(
     ignored for ``audio_only`` and recorded in the sidecar ``extra`` as ``quality``.
 
     ``cookies_from_browser`` is a yt-dlp ``BROWSER[+KEYRING][:PROFILE][::CONTAINER]`` spec;
-    when None, ``[download] cookies_from_browser`` / ``CLIPFORAGE_COOKIES_FROM_BROWSER`` (legacy
-    ``MEMEFINDER_COOKIES_FROM_BROWSER``) is used.
+    when None, ``[download] cookies_from_browser`` / ``CLIPFORAGE_COOKIES_FROM_BROWSER`` is used.
     """
     if cookies_from_browser is None:
         cookies_from_browser = config.get_setting(

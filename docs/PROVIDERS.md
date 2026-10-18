@@ -1,7 +1,3 @@
----
-paths: ["src/clipforage/providers/**"]
----
-
 # Provider rules
 
 - Implement the `Provider` Protocol from `src/clipforage/providers/base.py`: `id`, `kinds`,
@@ -40,6 +36,5 @@ paths: ["src/clipforage/providers/**"]
 - Exception: yt-dlp-backed providers use the yt-dlp Python API instead of the shared httpx client
   and test via an injected `ydl_factory`.
 - Register the provider in `src/clipforage/providers/registry.py`.
-- Document the key name `CLIPFORAGE_<ID>_KEY` in the provider module docstring (the legacy
-  `MEMEFINDER_<ID>_KEY` is still read by `config.get_key`; do not document it per provider)
-  (or state "no key required").
+- Document the key name `CLIPFORAGE_<ID>_KEY` in the provider module docstring,
+  or state "no key required".

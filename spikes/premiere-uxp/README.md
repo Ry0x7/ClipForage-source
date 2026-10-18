@@ -1,8 +1,7 @@
 # ClipForage Premiere UXP panel (spike)
 
-**UNTESTED SPIKE.** Nobody has loaded this panel into Premiere yet. It is a starting point for
-the open questions in [docs/PREMIERE_UXP_SPIKE.md](../../docs/PREMIERE_UXP_SPIKE.md), not a
-supported feature. The decision for now is GO-LATER.
+**UNTESTED PROTOTYPE.** This panel has not been loaded into Premiere and is not a supported
+feature. For everyday editing, use [folder import](../../docs/EDITORS.md#premiere-pro).
 
 What it does: a search box that calls `GET http://127.0.0.1:8765/api/search` on a running
 `clipforage serve`, then lists result titles with a license badge. Green means `commercial_ok`

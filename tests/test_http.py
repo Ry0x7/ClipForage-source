@@ -13,7 +13,9 @@ def _reset_shared_client() -> Iterator[None]:
 
 
 def test_user_agent_has_version_and_repo_url() -> None:
-    assert http.USER_AGENT == (f"clipforage/{__version__} (+https://github.com/Ry0x7/ClipForage-source)")
+    assert http.USER_AGENT == (
+        f"clipforage/{__version__} (+https://github.com/Ry0x7/ClipForage-source)"
+    )
 
 
 def test_make_client_sets_user_agent_and_defaults() -> None:
